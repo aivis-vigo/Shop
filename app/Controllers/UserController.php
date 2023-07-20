@@ -4,9 +4,9 @@ namespace App\Controllers;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Doctrine\DBAL\Schema\Schema;
+use RuntimeException;
+use function header;
 
 class UserController
 {
@@ -30,6 +30,17 @@ class UserController
     public function create(): void
     {
         try {
+            $users = $this->queryBuilder
+                ->select('*')
+                ->from('Users')
+                ->where('email = ?')
+                ->setParameter(0, $_POST['email'])
+                ->fetchAllAssociative();
+
+            if (count($users) > 0) {
+                throw new RuntimeException;
+            }
+
             $this->queryBuilder
                 ->insert('Users')
                 ->values(
@@ -42,11 +53,14 @@ class UserController
                 )
                 ->setParameter(0, $_POST['firstName'])
                 ->setParameter(1, $_POST['lastName'])
-                ->setParameter(2, $_POST['email'], 'unique')
+                ->setParameter(2, $_POST['email'])
                 ->setParameter(3, $_POST['password'])
                 ->executeQuery();
-        } catch (UniqueConstraintViolationException) {
-            var_dump('aaa');die;
+
+            header('Location: http://localhost:8000/home');
+        } catch (RuntimeException) {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit;
         }
     }
 

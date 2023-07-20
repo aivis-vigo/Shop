@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use App\Controllers\DashboardController;
 use App\Controllers\RegistrationController;
 use App\Controllers\AuthorizationController;
 use App\Controllers\UserController;
@@ -11,4 +12,7 @@ return [
     // Registration
     ['GET', '/register', [RegistrationController::class, 'index']],
     ['POST', '/create-user', [UserController::class, 'create']],
+
+    // Home
+    ['GET', '/home', [DashboardController::class, 'index']],
 ];

@@ -12,7 +12,7 @@ class AuthorizationController
 
     public function login(): TwigView
     {
-        return new TwigView('login', []);
+        return new TwigView('Authorization/login', []);
     }
 
     public function logout()

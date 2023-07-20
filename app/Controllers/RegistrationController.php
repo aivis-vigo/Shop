@@ -14,6 +14,6 @@ class  RegistrationController
 
     public function index(): TwigView
     {
-        return new TwigView('register', []);
+        return new TwigView('Authorization/register', []);
     }
 }
