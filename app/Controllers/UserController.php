@@ -4,7 +4,9 @@ namespace App\Controllers;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\DBAL\Schema\Schema;
 
 class UserController
 {
@@ -27,19 +29,25 @@ class UserController
 
     public function create(): void
     {
-        $this->queryBuilder
-            ->insert('Users')
-            ->values(
-                [
-                    'firstName' => '?',
-                    'lastName' => '?',
-                    'password' => '?'
-                ]
-            )
-            ->setParameter(0, $_POST['firstName'])
-            ->setParameter(1, $_POST['lastName'])
-            ->setParameter(2, $_POST['password'])
-            ->executeQuery();
+        try {
+            $this->queryBuilder
+                ->insert('Users')
+                ->values(
+                    [
+                        'firstName' => '?',
+                        'lastName' => '?',
+                        'email' => '?',
+                        'password' => '?'
+                    ]
+                )
+                ->setParameter(0, $_POST['firstName'])
+                ->setParameter(1, $_POST['lastName'])
+                ->setParameter(2, $_POST['email'], 'unique')
+                ->setParameter(3, $_POST['password'])
+                ->executeQuery();
+        } catch (UniqueConstraintViolationException) {
+            var_dump('aaa');die;
+        }
     }
 
     public function read()
