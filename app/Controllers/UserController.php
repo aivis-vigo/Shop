@@ -57,9 +57,9 @@ class UserController
                 ->setParameter(3, $_POST['password'])
                 ->executeQuery();
 
-            header('Location: http://localhost:8000/home');
+            header('Location: http://localhost:8000/');
         } catch (RuntimeException) {
-            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            header('Location: ' . $_SERVER['HTTP_REFERER']) . '?status=failed';
             exit;
         }
     }

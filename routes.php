@@ -14,5 +14,5 @@ return [
     ['POST', '/create-user', [UserController::class, 'create']],
 
     // Home
-    ['GET', '/home', [DashboardController::class, 'index']],
+    ['GET', '/', [DashboardController::class, 'index']],
 ];
