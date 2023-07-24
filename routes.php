@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use App\Controllers\DashboardController;
+use App\Controllers\ProfileController;
 use App\Controllers\RegistrationController;
 use App\Controllers\LoginController;
 use App\Controllers\UserController;
@@ -15,6 +16,9 @@ return [
 
     // Login
     ['GET', '/login', [LoginController::class, 'login']],
+
+    // Profile
+    ['GET', '/profile', [ProfileController::class, 'index']],
 
     // Logout
     ['GET', '/logout', [LoginController::class, 'logout']],

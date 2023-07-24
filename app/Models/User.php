@@ -6,20 +6,20 @@ class User
 {
     private string $firstName;
     private string $lastName;
+    private string $email;
     private string $password;
-    private string $secureKey;
 
     public function __construct(
         string $firstName,
         string $lastName,
-        string $password,
-        string $secureKey
+        string $email,
+        string $password
     )
     {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
+        $this->email = $email;
         $this->password = $password;
-        $this->secureKey = $secureKey;
     }
 
     public function firstName(): string
@@ -32,13 +32,13 @@ class User
         return $this->lastName;
     }
 
+    public function email(): string
+    {
+        return $this->email;
+    }
+
     public function password(): string
     {
         return $this->password;
-    }
-
-    public function secureKey(): string
-    {
-        return $this->secureKey;
     }
 }
