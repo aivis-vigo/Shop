@@ -2,17 +2,20 @@
 
 use App\Controllers\DashboardController;
 use App\Controllers\RegistrationController;
-use App\Controllers\AuthorizationController;
+use App\Controllers\LoginController;
 use App\Controllers\UserController;
 
 return [
-    // Login
-    ['GET', '/login', [AuthorizationController::class, 'login']],
+    // Home
+    ['GET', '/', [DashboardController::class, 'index']],
 
     // Registration
     ['GET', '/register', [RegistrationController::class, 'index']],
     ['POST', '/create-user', [UserController::class, 'create']],
 
-    // Home
-    ['GET', '/', [DashboardController::class, 'index']],
+    // Login
+    ['GET', '/login', [LoginController::class, 'login']],
+
+    // Logout
+    ['GET', '/logout', [LoginController::class, 'logout']],
 ];

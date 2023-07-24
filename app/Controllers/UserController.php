@@ -2,10 +2,11 @@
 
 namespace App\Controllers;
 
+use App\Exceptions\UserAlreadyExistsException;
+use Carbon\Carbon;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Query\QueryBuilder;
-use RuntimeException;
 use function header;
 
 class UserController
@@ -30,15 +31,15 @@ class UserController
     public function create(): void
     {
         try {
-            $users = $this->queryBuilder
+            $existingUser = $this->queryBuilder
                 ->select('*')
                 ->from('Users')
                 ->where('email = ?')
                 ->setParameter(0, $_POST['email'])
                 ->fetchAllAssociative();
 
-            if (count($users) > 0) {
-                throw new RuntimeException;
+            if (count($existingUser) > 0) {
+                throw new UserAlreadyExistsException();
             }
 
             $this->queryBuilder
@@ -48,18 +49,23 @@ class UserController
                         'firstName' => '?',
                         'lastName' => '?',
                         'email' => '?',
-                        'password' => '?'
+                        'password' => '?',
+                        'created_at' => '?'
                     ]
                 )
                 ->setParameter(0, $_POST['firstName'])
                 ->setParameter(1, $_POST['lastName'])
                 ->setParameter(2, $_POST['email'])
-                ->setParameter(3, $_POST['password'])
+                ->setParameter(3, password_hash($_POST['password'], PASSWORD_BCRYPT))
+                ->setParameter(4, Carbon::now()->toDateTimeString())
                 ->executeQuery();
 
+            session_start();
+            session_regenerate_id();
+
             header('Location: http://localhost:8000/');
-        } catch (RuntimeException) {
-            header('Location: ' . $_SERVER['HTTP_REFERER']) . '?status=failed';
+        } catch (UserAlreadyExistsException) {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
             exit;
         }
     }

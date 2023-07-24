@@ -4,19 +4,17 @@ namespace App\Controllers;
 
 use App\Core\TwigView;
 
-class AuthorizationController
+class LoginController
 {
-    public function __construct()
-    {
-    }
-
     public function login(): TwigView
     {
         return new TwigView('Authorization/login', []);
     }
 
-    public function logout()
+    public function logout(): void
     {
-        // User logs out
+        session_start();
+        session_destroy();
+        header('Location: http://localhost:8000/login');
     }
 }

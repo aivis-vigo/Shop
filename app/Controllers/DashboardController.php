@@ -8,6 +8,8 @@ class DashboardController
 {
     public function index(): TwigView
     {
+        session_start();
+
         return new TwigView('home', []);
     }
 }
