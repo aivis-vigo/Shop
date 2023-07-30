@@ -2,8 +2,10 @@
 
 namespace App\Controllers;
 
+use App\Core\TwigView;
 use App\Services\User\Create\CreateUserRequest;
 use App\Services\User\Create\CreateUserService;
+use App\Services\User\Read\ReadUserService;
 
 class UserController
 {
@@ -14,9 +16,13 @@ class UserController
         (new CreateUserService())->execute($request);
     }
 
-    public function read()
+    public function show(): TwigView
     {
-        // Get user info
+        $user = (new ReadUserService())->execute();
+
+        return new TwigView('Profile/profile', [
+            'user' => $user->data()
+        ]);
     }
 
     public function update()

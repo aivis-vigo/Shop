@@ -22,4 +22,7 @@ return [
 
     // Logout
     ['GET', '/logout', [LoginController::class, 'logout']],
+
+    // Test
+    ['GET', '/test', [UserController::class, 'show']],
 ];

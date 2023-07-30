@@ -15,9 +15,12 @@
                 <div class="col-span-4 sm:col-span-3">
                     <div class="bg-white shadow rounded-lg p-6">
                         <div class="flex flex-col items-center">
-                            <img src="https://randomuser.me/api/portraits/men/94.jpg" class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
+                            <img src="https://randomuser.me/api/portraits/men/94.jpg"
+                                 class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
+                                 alt="Profile Picture"
+                            >
                             <h1 class="text-xl font-bold">
-                                John Doe
+                                {{ user.firstName }} {{ user.lastName }}
                             </h1>
                             <p class="text-gray-600">
                                 Software Developer
@@ -41,9 +44,12 @@
                         <h2 class="text-xl font-bold mb-4">About Me</h2>
                         <p class="text-gray-700">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus est
-                            vitae tortor ullamcorper, ut vestibulum velit convallis. Aenean posuere risus non velit egestas
-                            suscipit. Nunc finibus vel ante id euismod. Vestibulum ante ipsum primis in faucibus orci luctus
-                            et ultrices posuere cubilia Curae; Aliquam erat volutpat. Nulla vulputate pharetra tellus, in
+                            vitae tortor ullamcorper, ut vestibulum velit convallis. Aenean posuere risus non velit
+                            egestas
+                            suscipit. Nunc finibus vel ante id euismod. Vestibulum ante ipsum primis in faucibus orci
+                            luctus
+                            et ultrices posuere cubilia Curae; Aliquam erat volutpat. Nulla vulputate pharetra tellus,
+                            in
                             luctus risus rhoncus id.
                         </p>
 
@@ -67,7 +73,8 @@
                             </div>
                             <p class="mt-2">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus est vitae
-                                tortor ullamcorper, ut vestibulum velit convallis. Aenean posuere risus non velit egestas
+                                tortor ullamcorper, ut vestibulum velit convallis. Aenean posuere risus non velit
+                                egestas
                                 suscipit.
                             </p>
                         </div>

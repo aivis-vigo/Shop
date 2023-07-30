@@ -29,6 +29,10 @@ class PdoUserRepository
         $this->queryBuilder = $this->connection->createQueryBuilder();
     }
 
+    // todo: validate if passwords match
+    // todo: try/catch blocks
+    // todo: restrict access after creating account to login/registration (mw)
+
     public function create(User $user): void
     {
         try {
@@ -71,9 +75,14 @@ class PdoUserRepository
         }
     }
 
-    public function read()
+    public function read(): array
     {
-        // Get user info
+        return $this->queryBuilder
+            ->select("*")
+            ->from("Users")
+            ->where("email = ?")
+            ->setParameter(0, "aivisvigoreimarts@gmail.com")
+            ->fetchAssociative();
     }
 
     public function update()
