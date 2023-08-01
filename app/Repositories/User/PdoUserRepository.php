@@ -72,6 +72,7 @@ class PdoUserRepository
 
             session_regenerate_id();
 
+            $_SESSION['authorized'] = true;
             $_SESSION['email'] = $user->email();
 
             header("Location: http://localhost:8000/profile");

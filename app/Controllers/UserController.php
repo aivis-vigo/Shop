@@ -18,6 +18,8 @@ class UserController
 
     public function show(): TwigView
     {
+        session_destroy();
+        var_dump($_SESSION);
         $user = (new ReadUserService())->execute()->data();
 
         return new TwigView('Profile/profile', [
@@ -27,7 +29,7 @@ class UserController
 
     public function update()
     {
-        // Update user info
+        // todo: update user info
     }
 
     public function delete(): void
