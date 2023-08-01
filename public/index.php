@@ -6,6 +6,8 @@ use App\Core\Renderer;
 use App\Core\Router;
 use Dotenv\Dotenv;
 
+session_start();
+
 $dotenv = Dotenv::createImmutable('../');
 $dotenv->load();
 

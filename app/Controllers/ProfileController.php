@@ -8,7 +8,7 @@ class ProfileController
 {
     public function index(): TwigView
     {
-        session_start();
+        var_dump($_SESSION);
 
         return new TwigView('Profile/profile', []);
     }

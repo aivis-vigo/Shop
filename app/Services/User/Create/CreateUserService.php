@@ -2,20 +2,12 @@
 
 namespace App\Services\User\Create;
 
-use App\Models\User;
 use App\Repositories\User\PdoUserRepository;
 
 class CreateUserService
 {
     public function execute(CreateUserRequest $request): void
     {
-        $user = new User(
-            $request->firstName(),
-            $request->lastName(),
-            $request->email(),
-            $request->password()
-        );
-
-        (new PdoUserRepository())->create($user);
+        (new PdoUserRepository())->validate($request->userInfo());
     }
 }
