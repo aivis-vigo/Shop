@@ -18,7 +18,9 @@ return [
     ['GET', '/login', [LoginController::class, 'login']],
 
     // Profile
-    ['GET', '/profile', [ProfileController::class, 'index']],
+    ['GET', '/profile', [UserController::class, 'show']],
+    ['GET', '/profile/update', [UserController::class, 'show']],
+    ['POST', '/profile/delete', [UserController::class, 'delete']],
 
     // Logout
     ['GET', '/logout', [LoginController::class, 'logout']],

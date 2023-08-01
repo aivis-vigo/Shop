@@ -3,6 +3,7 @@
 namespace App\Repositories\User;
 
 use App\Core\Database;
+use App\Exceptions\PasswordsDoNotMatchException;
 use App\Exceptions\UserAlreadyExistsException;
 use App\Models\User;
 use Carbon\Carbon;
@@ -25,7 +26,8 @@ class PdoUserRepository
 
     public function validate(array $user): void
     {
-        $newUser = $this->buildModel($user);
+        $newUser = $this->buildUser($user);
+        $confirmPassword = $user['confirm-password'];
 
         try {
             $validateUser = $this->query
@@ -36,9 +38,10 @@ class PdoUserRepository
                 ->executeStatement();
 
             if ($validateUser > 0) throw new UserAlreadyExistsException();
+            if ($newUser->password() !== $confirmPassword) throw new PasswordsDoNotMatchException();
 
             $this->create($newUser);
-        } catch (UserAlreadyExistsException|Exception) {
+        } catch (UserAlreadyExistsException|PasswordsDoNotMatchException|Exception) {
             header('Location: ' . $_SERVER['HTTP_REFERER']);
             exit;
         }
@@ -69,7 +72,7 @@ class PdoUserRepository
 
             session_regenerate_id();
 
-            $_SESSION['id'] = 11;
+            $_SESSION['email'] = $user->email();
 
             header("Location: http://localhost:8000/profile");
             exit;
@@ -78,14 +81,20 @@ class PdoUserRepository
         }
     }
 
-    public function read(): array
+    public function read(): ?User
     {
-        return $this->query
-            ->select("*")
-            ->from("Users")
-            ->where("email = ?")
-            ->setParameter(0, "aivisvigoreimarts@gmail.com")
-            ->fetchAssociative();
+        try {
+            $user = $this->query
+                ->select("*")
+                ->from("users")
+                ->where("email = ?")
+                ->setParameter(0, $_SESSION['email'])
+                ->fetchAssociative();
+
+            return $this->buildUser($user);
+        } catch (PDOException|Exception) {
+            return null;
+        }
     }
 
     public function update()
@@ -93,12 +102,22 @@ class PdoUserRepository
         // Update user info
     }
 
-    public function delete()
+    public function delete(string $user): void
     {
-        // Delete user
+        try {
+            $this->query
+                ->delete('users')
+                ->where('email = ?')
+                ->setParameter(0, $user)
+                ->executeQuery();
+
+            session_destroy();
+        } catch (Exception) {
+            return;
+        }
     }
 
-    private function buildModel(array $user): User
+    private function buildUser(array $user): User
     {
         return new User(
             $user['firstName'],

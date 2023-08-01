@@ -8,8 +8,6 @@ class DashboardController
 {
     public function index(): TwigView
     {
-        var_dump($_SESSION);
-
         return new TwigView('home', []);
     }
 }

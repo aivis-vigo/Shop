@@ -5,23 +5,23 @@ namespace App\Controllers;
 use App\Core\TwigView;
 use App\Services\User\Create\CreateUserRequest;
 use App\Services\User\Create\CreateUserService;
+use App\Services\User\Delete\DeleteUserRequest;
+use App\Services\User\Delete\DeleteUserService;
 use App\Services\User\Read\ReadUserService;
 
 class UserController
 {
     public function create(): void
     {
-        $request = new CreateUserRequest($_POST);
-
-        (new CreateUserService())->execute($request);
+        (new CreateUserService())->execute(new CreateUserRequest($_POST));
     }
 
     public function show(): TwigView
     {
-        $user = (new ReadUserService())->execute();
+        $user = (new ReadUserService())->execute()->data();
 
         return new TwigView('Profile/profile', [
-            'user' => $user->data()
+            'user' => $user
         ]);
     }
 
@@ -30,8 +30,12 @@ class UserController
         // Update user info
     }
 
-    public function delete()
+    public function delete(): void
     {
-        // Delete user
+        $request = new DeleteUserRequest($_SESSION['email']);
+
+        (new DeleteUserService())->execute($request->email());
+
+        header("Location: http://localhost:8000");
     }
 }

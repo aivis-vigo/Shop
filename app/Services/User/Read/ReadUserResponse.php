@@ -2,17 +2,26 @@
 
 namespace App\Services\User\Read;
 
+use App\Models\User;
+
 class ReadUserResponse
 {
-    private array $user;
+    private User $user;
 
-    public function __construct(array $user)
+    public function __construct(User $user)
     {
         $this->user = $user;
     }
 
     public function data(): array
     {
-        return $this->user;
+        $user = $this->user;
+
+        return [
+            'firstName' => $user->firstName(),
+            'lastName' => $user->lastName(),
+            'email' => $user->email(),
+            'password' => $user->password()
+        ];
     }
 }
