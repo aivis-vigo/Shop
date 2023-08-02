@@ -74,6 +74,15 @@ class PdoUserRepository
                 ->setParameter(5, Carbon::now()->toDateTimeString())
                 ->executeQuery();
 
+            $id = $this->query
+                ->select('id')
+                ->from('users')
+                ->where('email = ?')
+                ->setParameter(0, $user->email())
+                ->fetchOne();
+
+            var_dump($id);die;
+
             session_regenerate_id();
 
             $_SESSION['authorized'] = true;
