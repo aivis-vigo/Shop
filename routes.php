@@ -19,6 +19,7 @@ return [
     // Profile
     ['GET', '/profile', [UserController::class, 'show']],
     ['GET', '/profile/update', [UserController::class, 'show']],
+    ['POST', '/profile/process-update', [UserController::class, 'update']],
     ['POST', '/profile/delete', [UserController::class, 'delete']],
 
     // Logout

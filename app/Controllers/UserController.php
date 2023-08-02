@@ -8,6 +8,8 @@ use App\Services\User\Create\CreateUserService;
 use App\Services\User\Delete\DeleteUserRequest;
 use App\Services\User\Delete\DeleteUserService;
 use App\Services\User\Read\ReadUserService;
+use App\Services\User\Update\UpdateUserRequest;
+use App\Services\User\Update\UpdateUserService;
 
 class UserController
 {
@@ -26,9 +28,11 @@ class UserController
         ]);
     }
 
-    public function update()
+    public function update(): void
     {
-        // todo: update user info
+        (new UpdateUserService())->execute(new UpdateUserRequest($_POST));
+
+        header("Location: http://localhost:8000/profile");
     }
 
     public function delete(): void

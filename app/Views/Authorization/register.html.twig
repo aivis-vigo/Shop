@@ -9,9 +9,9 @@
 {% endblock %}
 
 {% block content %}
-    <section class="bg-white dark:bg-gray-900">
+    <section class="bg-gray-200">
         <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-            <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+            <h2 class="mb-4 text-xl font-bold text-black">
                 Create Account
             </h2>
             <form action="/create-user" method="post">
@@ -19,7 +19,7 @@
                     <div class="sm:col-span-2">
                         <label
                                 for="firstName"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                class="block mb-2 text-sm font-medium text-black"
                         >
                             Name
                         </label>
@@ -27,7 +27,7 @@
                                 type="text"
                                 name="firstName"
                                 id="firstName"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                class="bg-gray-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                 placeholder="John"
                                 required=""
                         >
@@ -35,7 +35,7 @@
                     <div class="sm:col-span-2">
                         <label
                                 for="lastName"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                class="block mb-2 text-sm font-medium text-black"
                         >
                             Surname
                         </label>
@@ -43,7 +43,7 @@
                                 type="text"
                                 name="lastName"
                                 id="lastName"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                 placeholder="Doe"
                                 required=""
                         >
@@ -51,7 +51,7 @@
                     <div class="sm:col-span-2">
                         <label
                                 for="email"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                class="block mb-2 text-sm font-medium text-black"
                         >
                             Email
                         </label>
@@ -59,7 +59,7 @@
                                 type="email"
                                 name="email"
                                 id="email"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                 placeholder="johndoe@example.com"
                                 required=""
                         >
@@ -67,7 +67,7 @@
                     <div class="sm:col-span-2">
                         <label
                                 for="password"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                class="block mb-2 text-sm font-medium text-black"
                         >
                             Password
                         </label>
@@ -75,7 +75,7 @@
                                 type="password"
                                 name="password"
                                 id="password"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                 placeholder="********"
                                 required=""
                         >
@@ -83,7 +83,7 @@
                     <div class="sm:col-span-2">
                         <label
                                 for="confirm-password"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                class="block mb-2 text-sm font-medium text-black"
                         >
                             Confirm Password
                         </label>
@@ -91,7 +91,7 @@
                                 type="password"
                                 name="confirm-password"
                                 id="confirm-password"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                 placeholder="********"
                                 required=""
                         >
@@ -99,7 +99,7 @@
                 </div>
                 <button
                         type="submit"
-                        class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-white rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 dark:text-black hover:bg-primary-800"
+                        class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-black bg-gray-400 rounded-lg focus:ring-4 focus:ring-primary-200 "
                 >
                     Create
                 </button>

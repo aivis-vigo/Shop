@@ -6,6 +6,7 @@ use App\Core\Database;
 use App\Exceptions\PasswordsDoNotMatchException;
 use App\Exceptions\UserAlreadyExistsException;
 use App\Models\User;
+use App\Services\User\Update\UpdateUserRequest;
 use Carbon\Carbon;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -60,7 +61,8 @@ class PdoUserRepository
                         'lastName' => '?',
                         'email' => '?',
                         'password' => '?',
-                        'created_at' => '?'
+                        'created_at' => '?',
+                        'updated_at' => '?'
                     ]
                 )
                 ->setParameter(0, $user->firstName())
@@ -68,6 +70,7 @@ class PdoUserRepository
                 ->setParameter(2, $user->email())
                 ->setParameter(3, $password)
                 ->setParameter(4, Carbon::now()->toDateTimeString())
+                ->setParameter(5, Carbon::now()->toDateTimeString())
                 ->executeQuery();
 
             session_regenerate_id();
@@ -82,14 +85,15 @@ class PdoUserRepository
         }
     }
 
+    // TODO: need to add ID to SESSION
     public function read(): ?User
     {
         try {
             $user = $this->query
                 ->select("*")
                 ->from("users")
-                ->where("email = ?")
-                ->setParameter(0, $_SESSION['email'])
+                ->where("id = ?")
+                ->setParameter(0, 51)
                 ->fetchAssociative();
 
             return $this->buildUser($user);
@@ -98,9 +102,25 @@ class PdoUserRepository
         }
     }
 
-    public function update()
+    // TODO: add into table updated_at field
+    public function update(UpdateUserRequest $user): void
     {
-        // Update user info
+        try {
+            $this->query
+                ->update('users')
+                ->set('firstName', '?')
+                ->set('lastName', '?')
+                ->set('email', '?')
+                ->set('updated_at', '?')
+                ->setParameter(1, $user->firstName())
+                ->setParameter(2, $user->lastName())
+                ->setParameter(3, $user->email())
+                ->setParameter(4, Carbon::now()->toDateTimeString())
+                ->where('id = ' . 51)
+                ->executeQuery();
+        } catch (PDOException|Exception) {
+            return;
+        }
     }
 
     public function delete(string $user): void
