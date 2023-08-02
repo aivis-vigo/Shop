@@ -48,6 +48,7 @@ class PdoUserRepository
         }
     }
 
+    // TODO: add ID to SESSION
     public function create(User $user): void
     {
         try {
@@ -76,6 +77,8 @@ class PdoUserRepository
             session_regenerate_id();
 
             $_SESSION['authorized'] = true;
+            $_SESSION['firstName'] = $user->firstName();
+            $_SESSION['lastName'] = $user->lastName();
             $_SESSION['email'] = $user->email();
 
             header("Location: http://localhost:8000/profile");
@@ -85,7 +88,7 @@ class PdoUserRepository
         }
     }
 
-    // TODO: need to add ID to SESSION
+    // TODO: pass ID dynamically
     public function read(): ?User
     {
         try {
@@ -102,7 +105,7 @@ class PdoUserRepository
         }
     }
 
-    // TODO: add into table updated_at field
+    // TODO: pass ID dynamically
     public function update(UpdateUserRequest $user): void
     {
         try {
