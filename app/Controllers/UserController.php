@@ -18,11 +18,10 @@ class UserController
 
     public function show(): TwigView
     {
-        session_destroy();
-        var_dump($_SESSION);
         $user = (new ReadUserService())->execute()->data();
 
         return new TwigView('Profile/profile', [
+            'authorized' => isset($_SESSION['authorized']),
             'user' => $user
         ]);
     }

@@ -8,6 +8,8 @@ class  RegistrationController
 {
     public function index(): TwigView
     {
-        return new TwigView('Authorization/register', []);
+        return new TwigView('Authorization/register', [
+            'authorized' => isset($_SESSION['authorized']),
+        ]);
     }
 }

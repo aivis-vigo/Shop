@@ -4,17 +4,20 @@ namespace App\Controllers;
 
 use App\Core\TwigView;
 
-class LoginController
+class AuthorizationController
 {
     public function login(): TwigView
     {
-        return new TwigView('Authorization/login', []);
+        // todo: login functionality
+        return new TwigView('Authorization/login', [
+            'authorized' => isset($_SESSION['authorized']),
+        ]);
     }
 
     public function logout(): void
     {
-        session_start();
         session_destroy();
+
         header('Location: http://localhost:8000/login');
     }
 }

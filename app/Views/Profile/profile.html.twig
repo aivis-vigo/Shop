@@ -38,59 +38,24 @@
                 </div>
                 <div class="col-span-4 sm:col-span-9">
                     <div class="bg-white shadow rounded-lg p-6">
-                        <h2 class="text-xl font-bold mb-4">About Me</h2>
-                        <p class="text-gray-700">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus est
-                            vitae tortor ullamcorper, ut vestibulum velit convallis. Aenean posuere risus non velit
-                            egestas
-                            suscipit. Nunc finibus vel ante id euismod. Vestibulum ante ipsum primis in faucibus orci
-                            luctus
-                            et ultrices posuere cubilia Curae; Aliquam erat volutpat. Nulla vulputate pharetra tellus,
-                            in
-                            luctus risus rhoncus id.
-                        </p>
+                        <div class="flex">
+                            <form action="/profile/update" method="post">
+                                <input type="hidden" name="email" value="{{ user.email }}">
+                                <button
+                                        type="submit"
+                                        class="inline-block rounded bg-blue-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
+                                    Edit
+                                </button>
+                            </form>
 
-
-                        <h2 class="text-xl font-bold mt-6 mb-4">
-                            Experience
-                        </h2>
-                        <div class="mb-6">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600 font-bold">
-                                    Web Developer
-                                </span>
-                                <p>
-                                    <span class="text-gray-600 mr-2">
-                                        at ABC Company
-                                    </span>
-                                    <span class="text-gray-600">
-                                        2017 - 2019
-                                    </span>
-                                </p>
-                            </div>
-                            <p class="mt-2">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus est vitae
-                                tortor ullamcorper, ut vestibulum velit convallis. Aenean posuere risus non velit
-                                egestas suscipit.
-                            </p>
+                            <form action="/profile/delete" method="post">
+                                <button
+                                        type="submit"
+                                        class="inline-block rounded bg-red-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
+                                    Delete
+                                </button>
+                            </form>
                         </div>
-
-                        <form action="/profile/update" method="post">
-                            <input type="hidden" name="email" value="{{ user.email }}">
-                            <button
-                                    type="submit"
-                                    class="inline-block rounded bg-blue-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
-                                Update
-                            </button>
-                        </form>
-
-                        <form action="/profile/delete" method="post">
-                            <button
-                                    type="submit"
-                                    class="inline-block rounded bg-red-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
-                                Delete
-                            </button>
-                        </form>
                     </div>
                 </div>
             </div>

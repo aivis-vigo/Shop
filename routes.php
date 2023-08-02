@@ -2,7 +2,7 @@
 
 use App\Controllers\DashboardController;
 use App\Controllers\RegistrationController;
-use App\Controllers\LoginController;
+use App\Controllers\AuthorizationController;
 use App\Controllers\UserController;
 
 return [
@@ -14,7 +14,7 @@ return [
     ['POST', '/create-user', [UserController::class, 'create']],
 
     // Login
-    ['GET', '/login', [LoginController::class, 'login']],
+    ['GET', '/login', [AuthorizationController::class, 'login']],
 
     // Profile
     ['GET', '/profile', [UserController::class, 'show']],
@@ -22,7 +22,7 @@ return [
     ['POST', '/profile/delete', [UserController::class, 'delete']],
 
     // Logout
-    ['GET', '/logout', [LoginController::class, 'logout']],
+    ['GET', '/logout', [AuthorizationController::class, 'logout']],
 
     // Test
     ['GET', '/test', [UserController::class, 'show']],

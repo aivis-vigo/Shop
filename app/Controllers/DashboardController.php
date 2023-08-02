@@ -8,6 +8,8 @@ class DashboardController
 {
     public function index(): TwigView
     {
-        return new TwigView('home', []);
+        return new TwigView('home', [
+            'authorized' => isset($_SESSION['authorized']),
+        ]);
     }
 }
