@@ -19,6 +19,7 @@ class PdoUserRepository
 {
     private QueryBuilder $query;
 
+
     /**
      * @throws Exception
      */
@@ -70,7 +71,6 @@ class PdoUserRepository
         }
     }
 
-    // TODO: catch Exceptions so they would work
     public function create(User $user): void
     {
         try {

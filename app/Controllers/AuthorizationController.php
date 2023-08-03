@@ -28,7 +28,11 @@ class AuthorizationController
             $_SESSION['email'] = $user['email'];
 
             header('Location: http://localhost:8000/profile');
+            exit;
         }
+
+        header('Location: http://localhost:8000/login');
+        exit;
     }
 
     public function logout(): void
@@ -36,5 +40,6 @@ class AuthorizationController
         session_destroy();
 
         header('Location: http://localhost:8000/login');
+        exit;
     }
 }

@@ -38,6 +38,7 @@ class UserController
         (new UpdateUserService())->execute(new UpdateUserRequest($id, $_POST));
 
         header("Location: http://localhost:8000/profile");
+        exit;
     }
 
     public function updatePassword(): void
@@ -47,6 +48,7 @@ class UserController
         (new UpdatePasswordService())->execute(new UpdatePasswordRequest($id, $_POST));
 
         header("Location: http://localhost:8000/profile");
+        exit;
     }
 
     public function delete(): void
@@ -56,5 +58,6 @@ class UserController
         (new DeleteUserService())->execute($request->email());
 
         header("Location: http://localhost:8000");
+        exit;
     }
 }
