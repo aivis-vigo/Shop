@@ -14,17 +14,16 @@ return [
     ['POST', '/create-user', [UserController::class, 'create']],
 
     // Login
-    ['GET', '/login', [AuthorizationController::class, 'login']],
+    ['GET', '/login', [AuthorizationController::class, 'index']],
+    ['POST', '/login/validate', [AuthorizationController::class, 'login']],
 
     // Profile
     ['GET', '/profile', [UserController::class, 'show']],
     ['GET', '/profile/update', [UserController::class, 'show']],
     ['POST', '/profile/process-update', [UserController::class, 'update']],
+    ['POST', '/profile/password-update', [UserController::class, 'updatePassword']],
     ['POST', '/profile/delete', [UserController::class, 'delete']],
 
     // Logout
     ['GET', '/logout', [AuthorizationController::class, 'logout']],
-
-    // Test
-    ['GET', '/test', [UserController::class, 'show']],
 ];

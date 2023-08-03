@@ -4,22 +4,30 @@ namespace App\Models;
 
 class User
 {
+    private ?int $id;
     private string $firstName;
     private string $lastName;
     private string $email;
     private string $password;
 
     public function __construct(
+        ?int $id,
         string $firstName,
         string $lastName,
         string $email,
         string $password
     )
     {
+        $this->id = $id;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
         $this->password = $password;
+    }
+
+    public function id(): int
+    {
+        return $this->id;
     }
 
     public function firstName(): string

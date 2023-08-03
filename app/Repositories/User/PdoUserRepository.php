@@ -6,6 +6,7 @@ use App\Core\Database;
 use App\Exceptions\PasswordsDoNotMatchException;
 use App\Exceptions\UserAlreadyExistsException;
 use App\Models\User;
+use App\Services\User\Password\UpdatePasswordRequest;
 use App\Services\User\Update\UpdateUserRequest;
 use Carbon\Carbon;
 use Doctrine\DBAL\Exception;
@@ -13,6 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use PDOException;
 use function header;
 
+// TODO: return status message for action
 class PdoUserRepository
 {
     private QueryBuilder $query;
@@ -48,14 +50,34 @@ class PdoUserRepository
         }
     }
 
-    // TODO: add ID to SESSION
+    public function validatePassword(UpdatePasswordRequest $user): void
+    {
+        try {
+            $currentPassword = $this->query
+                ->select('password')
+                ->from('users')
+                ->where('id = ?')
+                ->setParameter(0, $user->id())
+                ->fetchOne();
+
+            $currentPasswordMatch = password_verify($user->currentPassword(), $currentPassword);
+            $newPasswordsMatch = ($user->newPassword() == $user->confirmNewPassword());
+            $newPassword = password_hash($user->newPassword(), PASSWORD_BCRYPT);
+
+            if ($currentPasswordMatch && $newPasswordsMatch) $this->updatePassword($user->id(), $newPassword);
+        } catch (PDOException|Exception) {
+            return;
+        }
+    }
+
+    // TODO: catch Exceptions so they would work
     public function create(User $user): void
     {
         try {
             $password = password_hash($user->password(), PASSWORD_BCRYPT);
 
             $this->query
-                ->insert('Users')
+                ->insert('users')
                 ->values(
                     [
                         'firstName' => '?',
@@ -74,20 +96,9 @@ class PdoUserRepository
                 ->setParameter(5, Carbon::now()->toDateTimeString())
                 ->executeQuery();
 
-            $id = $this->query
-                ->select('id')
-                ->from('users')
-                ->where('email = ?')
-                ->setParameter(0, $user->email())
-                ->fetchOne();
-
-            var_dump($id);die;
-
             session_regenerate_id();
 
             $_SESSION['authorized'] = true;
-            $_SESSION['firstName'] = $user->firstName();
-            $_SESSION['lastName'] = $user->lastName();
             $_SESSION['email'] = $user->email();
 
             header("Location: http://localhost:8000/profile");
@@ -97,24 +108,26 @@ class PdoUserRepository
         }
     }
 
-    // TODO: pass ID dynamically
-    public function read(): ?User
+    public function read(string $email): ?User
     {
         try {
             $user = $this->query
                 ->select("*")
                 ->from("users")
-                ->where("id = ?")
-                ->setParameter(0, 51)
+                ->where("email = ?")
+                ->setParameter(0, $email)
                 ->fetchAssociative();
 
-            return $this->buildUser($user);
+            $activeUser = $this->buildUser($user);
+
+            $_SESSION['id'] = $activeUser->id();
+
+            return $activeUser;
         } catch (PDOException|Exception) {
             return null;
         }
     }
 
-    // TODO: pass ID dynamically
     public function update(UpdateUserRequest $user): void
     {
         try {
@@ -128,7 +141,23 @@ class PdoUserRepository
                 ->setParameter(2, $user->lastName())
                 ->setParameter(3, $user->email())
                 ->setParameter(4, Carbon::now()->toDateTimeString())
-                ->where('id = ' . 51)
+                ->where('id = ' . $user->id())
+                ->executeQuery();
+
+            $_SESSION['email'] = $user->email();
+        } catch (PDOException|Exception) {
+            return;
+        }
+    }
+
+    public function updatePassword(int $id, string $newPassword): void
+    {
+        try {
+            $this->query
+                ->update('users')
+                ->set('password', '?')
+                ->setParameter(0, $newPassword)
+                ->where('id = ' . $id)
                 ->executeQuery();
         } catch (PDOException|Exception) {
             return;
@@ -153,6 +182,7 @@ class PdoUserRepository
     private function buildUser(array $user): User
     {
         return new User(
+            $user['id'],
             $user['firstName'],
             $user['lastName'],
             $user['email'],

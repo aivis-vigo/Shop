@@ -6,9 +6,9 @@ use App\Repositories\User\PdoUserRepository;
 
 class ReadUserService
 {
-    public function execute(): ReadUserResponse
+    public function execute(ReadUserRequest $request): ReadUserResponse
     {
-        $response = (new PdoUserRepository())->read();
+        $response = (new PdoUserRepository())->read($request->email());
 
         return new ReadUserResponse($response);
     }
