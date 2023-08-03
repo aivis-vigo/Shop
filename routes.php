@@ -24,6 +24,9 @@ return [
     ['POST', '/profile/password-update', [UserController::class, 'updatePassword']],
     ['POST', '/profile/delete', [UserController::class, 'delete']],
 
+    // Sections
+    ['GET', '/jobs', [SectionController::class, 'show']],
+
     // Logout
     ['GET', '/logout', [AuthorizationController::class, 'logout']],
 ];

@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace App\Repositories\Section;
+namespace App\Repositories\Option;
 
 use App\Core\Database;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Query\QueryBuilder;
 use PDOException;
 
-class PdoSectionRepository
+class PdoOptionRepository
 {
     private QueryBuilder $query;
 
@@ -23,8 +23,9 @@ class PdoSectionRepository
     {
         try {
             return $this->query
-                ->select('*')
-                ->from('sections')
+                ->select('o.title')
+                ->from('options', 'o')
+                ->leftJoin('o', 'sections', 's', 's.id = 1')
                 ->fetchAllAssociative();
         } catch (PDOException|Exception) {
             return null;
