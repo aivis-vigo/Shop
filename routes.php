@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-use App\Controllers\DashboardController;
+use App\Controllers\SectionController;
 use App\Controllers\RegistrationController;
 use App\Controllers\AuthorizationController;
 use App\Controllers\UserController;
 
 return [
     // Home
-    ['GET', '/', [DashboardController::class, 'index']],
+    ['GET', '/', [SectionController::class, 'index']],
 
     // Registration
     ['GET', '/register', [RegistrationController::class, 'index']],
