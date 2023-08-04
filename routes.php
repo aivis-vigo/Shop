@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use App\Controllers\ListingController;
 use App\Controllers\SectionController;
 use App\Controllers\RegistrationController;
 use App\Controllers\AuthorizationController;
@@ -23,6 +24,10 @@ return [
     ['POST', '/profile/process-update', [UserController::class, 'update']],
     ['POST', '/profile/password-update', [UserController::class, 'updatePassword']],
     ['POST', '/profile/delete', [UserController::class, 'delete']],
+
+    // Create listing
+    ['GET', '/create-listing', [ListingController::class, 'index']],
+    ['POST', '/save-listing', [ListingController::class, 'create']],
 
     // Sections
     ['GET', '/jobs/{id:\d+}', [SectionController::class, 'show']],

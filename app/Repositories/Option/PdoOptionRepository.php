@@ -33,4 +33,16 @@ class PdoOptionRepository
             return null;
         }
     }
+
+    public function fetchAll(): ?array
+    {
+        try {
+            return $this->query
+                ->select("*")
+                ->from("options")
+                ->fetchAllAssociative();
+        } catch (PDOException|Exception) {
+            return null;
+        }
+    }
 }

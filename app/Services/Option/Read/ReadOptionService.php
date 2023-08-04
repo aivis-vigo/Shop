@@ -12,4 +12,11 @@ class ReadOptionService
 
         return new ReadOptionResponse($options);
     }
+
+    public function fetchAll(): ReadOptionResponse
+    {
+        $options = (new PdoOptionRepository())->fetchAll();
+
+        return new ReadOptionResponse($options);
+    }
 }
