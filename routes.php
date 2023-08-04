@@ -25,7 +25,16 @@ return [
     ['POST', '/profile/delete', [UserController::class, 'delete']],
 
     // Sections
-    ['GET', '/jobs', [SectionController::class, 'show']],
+    ['GET', '/jobs/{id:\d+}', [SectionController::class, 'show']],
+
+    // Section options
+    ['GET', '/electronics/{id:\d+}', [SectionController::class, 'show']],
+    ['GET', '/transport/{id:\d+}', [SectionController::class, 'show']],
+    ['GET', '/clothing/{id:\d+}', [SectionController::class, 'show']],
+    ['GET', '/animals/{id:\d+}', [SectionController::class, 'show']],
+    ['GET', '/properties/{id:\d+}', [SectionController::class, 'show']],
+    ['GET', '/furniture/{id:\d+}', [SectionController::class, 'show']],
+    ['GET', '/hobbies/{id:\d+}', [SectionController::class, 'show']],
 
     // Logout
     ['GET', '/logout', [AuthorizationController::class, 'logout']],

@@ -9,12 +9,15 @@
 {% endblock %}
 
 {% block content %}
-        <section class="w-full justify-center">
-            <div class="container mx-auto my-10">
-                <div class="flex flex-wrap -mx-4">
-                    {% for section in sections %}
+    <section class="w-full justify-center">
+        <div class="container mx-auto my-10">
+            <div class="flex flex-wrap -mx-4">
+                {% if options is empty %}
+                    Empty for now!
+                {% else %}
+                    {% for option in options %}
                         <div class="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4">
-                            <a href="/{{ section.title|lower }}/{{ section.id }}"
+                            <a href="{{ option.title|lower }}"
                                class="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
                                 <div class="relative pb-48 overflow-hidden">
                                     <img class="absolute inset-0 h-full w-full object-cover"
@@ -23,18 +26,16 @@
                                 </div>
                                 <div class="p-4">
                                     <h2 class="mt-2 mb-2 font-bold">
-                                        {{ section.title }}
+                                        {{ option.title }}
                                     </h2>
-                                    <p class="text-sm">
-                                        {{ section.description }}
-                                    </p>
                                 </div>
                             </a>
                         </div>
                     {% endfor %}
-                </div>
+                {% endif %}
             </div>
-        </section>
+        </div>
+    </section>
 {% endblock %}
 
 

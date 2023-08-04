@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Core\TwigView;
+use App\Services\Option\Read\ReadOptionsRequest;
 use App\Services\Section\Read\ReadSectionService;
 use App\Services\Option\Read\ReadOptionService;
 
@@ -20,13 +21,14 @@ class SectionController
         ]);
     }
 
-    public function show(): TwigView
+    // TODO: add section name to option link
+    public function show(array $vars): TwigView
     {
-        $options = (new ReadOptionService())->execute()->options();
+        $sectionId = (int)$vars['id'];
 
-        var_dump($options);
+        $options = (new ReadOptionService())->execute(new ReadOptionsRequest($sectionId))->options();
 
-        return new TwigView('home', [
+        return new TwigView('options', [
             'authorized' => isset($_SESSION['authorized']),
             'options' => $options
         ]);

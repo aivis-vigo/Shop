@@ -37,7 +37,7 @@ class Router
 
                 [$controllerName, $methodName] = $handler;
 
-                return (new $controllerName)->$methodName();
+                return (new $controllerName)->$methodName($vars);
         }
         return null;
     }

@@ -19,13 +19,15 @@ class PdoOptionRepository
         $this->query = Database::connect();
     }
 
-    public function read(): ?array
+    public function read(int $id): ?array
     {
         try {
             return $this->query
-                ->select('o.title')
-                ->from('options', 'o')
-                ->leftJoin('o', 'sections', 's', 's.id = 1')
+                ->select("o.title")
+                ->from("options", "o")
+                ->innerJoin("o", "sections", "s", "s.id = o.section_id")
+                ->where("section_id = ?")
+                ->setParameter(0, $id)
                 ->fetchAllAssociative();
         } catch (PDOException|Exception) {
             return null;

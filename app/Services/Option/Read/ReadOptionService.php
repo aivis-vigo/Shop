@@ -6,9 +6,9 @@ use App\Repositories\Option\PdoOptionRepository;
 
 class ReadOptionService
 {
-    public function execute(): ReadOptionResponse
+    public function execute(ReadOptionsRequest $request): ReadOptionResponse
     {
-        $options = (new PdoOptionRepository())->read();
+        $options = (new PdoOptionRepository())->read($request->id());
 
         return new ReadOptionResponse($options);
     }
