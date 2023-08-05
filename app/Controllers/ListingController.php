@@ -35,7 +35,6 @@ class ListingController
         $listings = (int)$vars['id'];
 
         $listings = (new ReadListingService())->execute(new ReadListingRequest($listings))->listings();
-        var_dump($listings);
 
         return new TwigView('listings', [
             'authorized' => isset($_SESSION['authorized']),
