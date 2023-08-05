@@ -11,8 +11,6 @@ use App\Services\Option\Read\ReadOptionService;
 
 class ListingController
 {
-    // TODO: display listing option title
-    // TODO: pass listing option title as id
     public function index(): TwigView
     {
         $options = (new ReadOptionService())->fetchAll()->options();
@@ -37,6 +35,7 @@ class ListingController
         $listings = (int)$vars['id'];
 
         $listings = (new ReadListingService())->execute(new ReadListingRequest($listings))->listings();
+        var_dump($listings);
 
         return new TwigView('listings', [
             'authorized' => isset($_SESSION['authorized']),

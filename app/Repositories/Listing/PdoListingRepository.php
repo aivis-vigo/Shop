@@ -51,17 +51,18 @@ class PdoListingRepository
         }
     }
 
-    public function read(ReadListingRequest $request): ?array
+    public function read(ReadListingRequest $request): array|string
     {
         try {
             return $this->query
-                ->select('*')
-                ->from('listing')
-                ->where('option_id = ?')
+                ->select('l.*')
+                ->from('listing', 'l')
+                ->leftJoin('l', 'options', 'o', 'o.id = l.option_id')
+                ->where('l.option_id = ?')
                 ->setParameter(0, $request->id())
                 ->fetchAllAssociative();
         } catch (PDOException|Exception) {
-            return null;
+            return "Something went wrong! The operation didn't execute as expected. Please try again later or contact our support team for assistance";
         }
     }
 }

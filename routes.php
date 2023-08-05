@@ -31,8 +31,6 @@ return [
 
     // Sections
     ['GET', '/jobs/{id:\d+}', [SectionController::class, 'show']],
-
-    // Sub-Sections
     ['GET', '/electronics/{id:\d+}', [SectionController::class, 'show']],
     ['GET', '/transport/{id:\d+}', [SectionController::class, 'show']],
     ['GET', '/clothing/{id:\d+}', [SectionController::class, 'show']],
@@ -42,7 +40,14 @@ return [
     ['GET', '/hobbies/{id:\d+}', [SectionController::class, 'show']],
 
     // Display Listings
+    ['GET', '/jobs/{title}/{id:\d+}', [ListingController::class, 'read']],
     ['GET', '/electronics/{title}/{id:\d+}', [ListingController::class, 'read']],
+    ['GET', '/transport/{title}/{id:\d+}', [ListingController::class, 'read']],
+    ['GET', '/clothing/{title}/{id:\d+}', [ListingController::class, 'read']],
+    ['GET', '/animals/{title}/{id:\d+}', [ListingController::class, 'read']],
+    ['GET', '/properties/{title}/{id:\d+}', [ListingController::class, 'read']],
+    ['GET', '/furniture/{title}/{id:\d+}', [ListingController::class, 'read']],
+    ['GET', '/hobbies/{title}/{id:\d+}', [ListingController::class, 'read']],
 
     // Logout
     ['GET', '/logout', [AuthorizationController::class, 'logout']],
