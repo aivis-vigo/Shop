@@ -23,7 +23,7 @@ class PdoOptionRepository
     {
         try {
             return $this->query
-                ->select("o.title")
+                ->select("o.id, o.title")
                 ->from("options", "o")
                 ->innerJoin("o", "sections", "s", "s.id = o.section_id")
                 ->where("section_id = ?")

@@ -32,7 +32,7 @@ return [
     // Sections
     ['GET', '/jobs/{id:\d+}', [SectionController::class, 'show']],
 
-    // Section options
+    // Sub-Sections
     ['GET', '/electronics/{id:\d+}', [SectionController::class, 'show']],
     ['GET', '/transport/{id:\d+}', [SectionController::class, 'show']],
     ['GET', '/clothing/{id:\d+}', [SectionController::class, 'show']],
@@ -40,6 +40,9 @@ return [
     ['GET', '/properties/{id:\d+}', [SectionController::class, 'show']],
     ['GET', '/furniture/{id:\d+}', [SectionController::class, 'show']],
     ['GET', '/hobbies/{id:\d+}', [SectionController::class, 'show']],
+
+    // Display Listings
+    ['GET', '/electronics/{title}/{id:\d+}', [ListingController::class, 'read']],
 
     // Logout
     ['GET', '/logout', [AuthorizationController::class, 'logout']],
