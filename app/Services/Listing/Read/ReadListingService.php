@@ -12,4 +12,11 @@ class ReadListingService
 
         return new ReadListingResponse($listings);
     }
+
+    public function fetchSingle(ReadListingRequest $request): ReadListingResponse
+    {
+        $listings = (new PdoListingRepository())->fetchSingle($request);
+
+        return new ReadListingResponse($listings);
+    }
 }

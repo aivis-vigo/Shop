@@ -39,15 +39,18 @@ return [
     ['GET', '/furniture/{id:\d+}', [SectionController::class, 'show']],
     ['GET', '/hobbies/{id:\d+}', [SectionController::class, 'show']],
 
-    // Display Listings
-    ['GET', '/jobs/{title}/{id:\d+}', [ListingController::class, 'read']],
-    ['GET', '/electronics/{title}/{id:\d+}', [ListingController::class, 'read']],
-    ['GET', '/transport/{title}/{id:\d+}', [ListingController::class, 'read']],
-    ['GET', '/clothing/{title}/{id:\d+}', [ListingController::class, 'read']],
-    ['GET', '/animals/{title}/{id:\d+}', [ListingController::class, 'read']],
-    ['GET', '/properties/{title}/{id:\d+}', [ListingController::class, 'read']],
-    ['GET', '/furniture/{title}/{id:\d+}', [ListingController::class, 'read']],
-    ['GET', '/hobbies/{title}/{id:\d+}', [ListingController::class, 'read']],
+    // Display All Listings
+    ['GET', '/jobs/{title}/{id:\d+}/', [ListingController::class, 'read']],
+    ['GET', '/electronics/{title}/{id:\d+}/', [ListingController::class, 'read']],
+    ['GET', '/transport/{title}/{id:\d+}/', [ListingController::class, 'read']],
+    ['GET', '/clothing/{title}/{id:\d+}/', [ListingController::class, 'read']],
+    ['GET', '/animals/{title}/{id:\d+}/', [ListingController::class, 'read']],
+    ['GET', '/properties/{title}/{id:\d+}/', [ListingController::class, 'read']],
+    ['GET', '/furniture/{title}/{id:\d+}/', [ListingController::class, 'read']],
+    ['GET', '/hobbies/{title}/{id:\d+}/', [ListingController::class, 'read']],
+
+    // Display Selected Listings
+    ['GET', '/electronics/{title}/{id:\d+}/{listing:\d+}', [ListingController::class, 'show']],
 
     // Logout
     ['GET', '/logout', [AuthorizationController::class, 'logout']],

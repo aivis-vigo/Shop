@@ -65,4 +65,18 @@ class PdoListingRepository
             return "Something went wrong! The operation didn't execute as expected. Please try again later or contact our support team for assistance";
         }
     }
+
+    public function fetchSingle(ReadListingRequest $request): string|array
+    {
+        try {
+            return $this->query
+                ->select('*')
+                ->from('listing')
+                ->where('id = ?')
+                ->setParameter(0, $request->id())
+                ->fetchAssociative();
+        } catch (PDOException|Exception) {
+            return "Something went wrong! The operation didn't execute as expected. Please try again later or contact our support team for assistance";
+        }
+    }
 }

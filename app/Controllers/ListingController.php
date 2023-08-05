@@ -21,6 +21,18 @@ class ListingController
         ]);
     }
 
+    public function show(array $vars): TwigView
+    {
+        $id = (int)($vars['listing']);
+
+        $listing = (new ReadListingService())->fetchSingle(new ReadListingRequest($id))->listings();
+
+        return new TwigView('listing', [
+            'authorized' => isset($_SESSION['authorized']),
+            'listing' => $listing
+        ]);
+    }
+
     public function create(): void
     {
         (new CreateListingService())->execute(new CreateListingRequest($_POST));
