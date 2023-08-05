@@ -50,7 +50,14 @@ return [
     ['GET', '/hobbies/{title}/{id:\d+}/', [ListingController::class, 'read']],
 
     // Display Selected Listings
+    ['GET', '/jobs/{title}/{id:\d+}/{listing:\d+}', [ListingController::class, 'show']],
     ['GET', '/electronics/{title}/{id:\d+}/{listing:\d+}', [ListingController::class, 'show']],
+    ['GET', '/transport/{title}/{id:\d+}/{listing:\d+}', [ListingController::class, 'show']],
+    ['GET', '/clothing/{title}/{id:\d+}/{listing:\d+}', [ListingController::class, 'show']],
+    ['GET', '/animals/{title}/{id:\d+}/{listing:\d+}', [ListingController::class, 'show']],
+    ['GET', '/properties/{title}/{id:\d+}/{listing:\d+}', [ListingController::class, 'show']],
+    ['GET', '/furniture/{title}/{id:\d+}/{listing:\d+}', [ListingController::class, 'show']],
+    ['GET', '/hobbies/{title}/{id:\d+}/{listing:\d+}', [ListingController::class, 'show']],
 
     // Logout
     ['GET', '/logout', [AuthorizationController::class, 'logout']],
