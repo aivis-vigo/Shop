@@ -17,6 +17,7 @@ class SectionController
 
         return new TwigView('home', [
             'authorized' => isset($_SESSION['authorized']),
+            'status' => isset($_COOKIE['status']),
             'sections' => $sections
         ]);
     }
