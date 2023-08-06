@@ -5,7 +5,6 @@ namespace App\Repositories\Listing;
 use App\Core\Database;
 use App\Services\Listing\Create\CreateListingRequest;
 use App\Services\Listing\Read\ReadListingRequest;
-use App\Services\Listing\Read\ReadListingResponse;
 use Carbon\Carbon;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -24,7 +23,10 @@ class PdoListingRepository
     }
 
     // TODO: convert price to int
-    public function create(CreateListingRequest $listing): void
+    // TODO: select sections
+    // TODO: display sections in list
+    // TODO: based on selected section display sections options (Vue.js)
+    public function create(CreateListingRequest $listing): string
     {
         try {
             $this->query
@@ -46,8 +48,10 @@ class PdoListingRepository
                 ->setParameter(4, $listing->location())
                 ->setParameter(5, Carbon::now()->toDateTimeString())
                 ->executeQuery();
+
+            return "Success";
         } catch (PDOException|Exception) {
-            return;
+            return "Failed";
         }
     }
 

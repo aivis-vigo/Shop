@@ -9,28 +9,6 @@
 {% endblock %}
 
 {% block content %}
-    {% verbatim %}
-        <div id="app">
-            <button @click="count++">
-                Count is: {{ count }}
-            </button>
-        </div>
-    {% endverbatim %}
-
-    <script>
-        const { createApp, ref } = Vue
-
-        createApp({
-            setup() {
-                const count = ref(0)
-
-                return {
-                    count
-                }
-            }
-        }).mount('#app')
-    </script>
-
     <section>
         <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
             <h2 class="mb-4 text-xl font-bold text-white">

@@ -21,7 +21,6 @@ class SectionController
         ]);
     }
 
-    // TODO: add section name to option link
     // TODO: display number of how many is being sold
     public function show(array $vars): TwigView
     {

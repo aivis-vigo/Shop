@@ -9,188 +9,187 @@
 {% endblock %}
 
 {% block content %}
-        <div class="container mx-auto py-8">
-            <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
-                <div class="col-span-4 sm:col-span-3">
-                    <div class="bg-white shadow rounded-lg p-6">
-                        <div class="flex flex-col items-center">
-                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                                 class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
-                                 alt="Profile Picture"
-                            >
-                            <h1 class="text-xl font-bold">
-                                {{ user.firstName }} {{ user.lastName }}
-                            </h1>
-                        </div>
-                        <hr class="my-6 border-t border-gray-300">
-                        <div class="flex flex-col">
+    <div class="container mx-auto py-8">
+        <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
+            <div class="col-span-4 sm:col-span-3">
+                <div class="bg-white shadow rounded-lg p-6">
+                    <div class="flex flex-col items-center">
+                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                             class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
+                             alt="Profile Picture"
+                        >
+                        <h1 class="text-xl font-bold">
+                            {{ user.firstName }} {{ user.lastName }}
+                        </h1>
+                    </div>
+                    <hr class="my-6 border-t border-gray-300">
+                    <div class="flex flex-col">
                             <span class="text-gray-600 uppercase font-bold tracking-wider mb-2">
                                 Info
                             </span>
-                            <ul>
-                                <li class="mb-2">
-                                    {{ user.email }}
-                                </li>
-                            </ul>
-                        </div>
+                        <ul>
+                            <li class="mb-2">
+                                {{ user.email }}
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div class="col-span-4 sm:col-span-9">
-                    <div class="bg-white shadow rounded-lg p-6">
-                        <h2 class="mb-4 text-xl font-bold text-black">
-                            Personal Information
-                        </h2>
-                        <form action="/profile/process-update" method="post">
-                            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-                                <div class="sm:col-span-2">
-                                    <label
-                                            for="firstName"
-                                            class="block mb-2 text-sm font-medium text-black"
-                                    >
-                                        Name
-                                    </label>
-                                    <input
-                                            type="text"
-                                            name="firstName"
-                                            id="firstName"
-                                            class="bg-gray-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                            value="{{ user.firstName }}"
-                                            required=""
-                                    >
-                                </div>
-                                <div class="sm:col-span-2">
-                                    <label
-                                            for="lastName"
-                                            class="block mb-2 text-sm font-medium text-black"
-                                    >
-                                        Surname
-                                    </label>
-                                    <input
-                                            type="text"
-                                            name="lastName"
-                                            id="lastName"
-                                            class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                            value="{{ user.lastName }}"
-                                            required=""
-                                    >
-                                </div>
-                                <div class="sm:col-span-2">
-                                    <label
-                                            for="email"
-                                            class="block mb-2 text-sm font-medium text-black"
-                                    >
-                                        Email
-                                    </label>
-                                    <input
-                                            type="email"
-                                            name="email"
-                                            id="email"
-                                            class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                            value="{{ user.email }}"
-                                            required=""
-                                    >
-                                </div>
+            </div>
+            <div class="col-span-4 sm:col-span-9">
+                <div class="bg-white shadow rounded-lg p-6">
+                    <h2 class="mb-4 text-xl font-bold text-black">
+                        Personal Information
+                    </h2>
+                    <form action="/profile/process-update" method="post">
+                        <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                            <div class="sm:col-span-2">
+                                <label
+                                        for="firstName"
+                                        class="block mb-2 text-sm font-medium text-black"
+                                >
+                                    Name
+                                </label>
+                                <input
+                                        type="text"
+                                        name="firstName"
+                                        id="firstName"
+                                        class="bg-gray-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                        value="{{ user.firstName }}"
+                                        required
+                                >
                             </div>
-
-                            <div class="flex justify-end mt-4">
-                                <button
-                                        type="submit"
-                                        class="inline-block rounded bg-blue-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
-                                    Save
-                                </button>
+                            <div class="sm:col-span-2">
+                                <label
+                                        for="lastName"
+                                        class="block mb-2 text-sm font-medium text-black"
+                                >
+                                    Surname
+                                </label>
+                                <input
+                                        type="text"
+                                        name="lastName"
+                                        id="lastName"
+                                        class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                        value="{{ user.lastName }}"
+                                        required
+                                >
                             </div>
-                        </form>
-
-                        <hr class="my-2 border-gray-300 sm:mx-auto lg:my-4"/>
-
-                        <h2 class="mb-4 text-xl font-bold text-black">
-                            Change Password
-                        </h2>
-
-                        <form action="/profile/password-update" method="post">
-                            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-                                <div class="sm:col-span-2">
-                                    <label
-                                            for="current-password"
-                                            class="block mb-2 text-sm font-medium text-black"
-                                    >
-                                        Current
-                                    </label>
-                                    <input
-                                            type="password"
-                                            name="current-password"
-                                            id="current-password"
-                                            class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                            placeholder="********"
-                                            required=""
-                                    >
-                                </div>
-                                <div class="sm:col-span-2">
-                                    <label
-                                            for="new-password"
-                                            class="block mb-2 text-sm font-medium text-black"
-                                    >
-                                        New password
-                                    </label>
-                                    <input
-                                            type="password"
-                                            name="new-password"
-                                            id="new-password"
-                                            class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                            placeholder="********"
-                                            required=""
-                                    >
-                                </div>
-                                <div class="sm:col-span-2">
-                                    <label
-                                            for="confirm-new-password"
-                                            class="block mb-2 text-sm font-medium text-black"
-                                    >
-                                        Confirm password
-                                    </label>
-                                    <input
-                                            type="password"
-                                            name="confirm-new-password"
-                                            id="confirm-new-password"
-                                            class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                            placeholder="********"
-                                            required=""
-                                    >
-                                </div>
+                            <div class="sm:col-span-2">
+                                <label
+                                        for="email"
+                                        class="block mb-2 text-sm font-medium text-black"
+                                >
+                                    Email
+                                </label>
+                                <input
+                                        type="email"
+                                        name="email"
+                                        class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                        value="{{ user.email }}"
+                                        required
+                                >
                             </div>
-
-                            <div class="flex justify-end mt-4">
-                                <button
-                                        type="submit"
-                                        class="inline-block rounded bg-blue-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
-                                    Save
-                                </button>
-                            </div>
-                        </form>
-
-                        <hr class="my-2 border-gray-300 sm:mx-auto lg:my-4"/>
-
-                        <h2 class="mb-4 text-xl font-bold text-black">
-                            Delete Account
-                        </h2>
-
-                        <div class="flex justify-between mt-4">
-                            <div class="text-gray-400">
-                                Once the deletion process is finalized, your personal information will be permanently
-                                erased!
-                            </div>
-                            <form action="/profile/delete" method="post">
-                                <button
-                                        type="submit"
-                                        class="inline-block rounded bg-red-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
-                                    Delete
-                                </button>
-                            </form>
                         </div>
+
+                        <div class="flex justify-end mt-4">
+                            <button
+                                    type="submit"
+                                    class="inline-block rounded bg-blue-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr class="my-2 border-gray-300 sm:mx-auto lg:my-4"/>
+
+                    <h2 class="mb-4 text-xl font-bold text-black">
+                        Change Password
+                    </h2>
+
+                    <form action="/profile/password-update" method="post">
+                        <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                            <div class="sm:col-span-2">
+                                <label
+                                        for="current-password"
+                                        class="block mb-2 text-sm font-medium text-black"
+                                >
+                                    Current
+                                </label>
+                                <input
+                                        type="password"
+                                        name="current-password"
+                                        id="current-password"
+                                        class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                        placeholder="********"
+                                        required
+                                >
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label
+                                        for="new-password"
+                                        class="block mb-2 text-sm font-medium text-black"
+                                >
+                                    New password
+                                </label>
+                                <input
+                                        type="password"
+                                        name="new-password"
+                                        id="new-password"
+                                        class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                        placeholder="********"
+                                        required
+                                >
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label
+                                        for="confirm-new-password"
+                                        class="block mb-2 text-sm font-medium text-black"
+                                >
+                                    Confirm password
+                                </label>
+                                <input
+                                        type="password"
+                                        name="confirm-new-password"
+                                        id="confirm-new-password"
+                                        class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                        placeholder="********"
+                                        required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end mt-4">
+                            <button
+                                    type="submit"
+                                    class="inline-block rounded bg-blue-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr class="my-2 border-gray-300 sm:mx-auto lg:my-4"/>
+
+                    <h2 class="mb-4 text-xl font-bold text-black">
+                        Delete Account
+                    </h2>
+
+                    <div class="flex justify-between mt-4">
+                        <div class="text-gray-400">
+                            Once the deletion process is finalized, your personal information will be permanently
+                            erased!
+                        </div>
+                        <form action="/profile/delete" method="post">
+                            <button
+                                    type="submit"
+                                    class="inline-block rounded bg-red-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
+                                Delete
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 {% endblock %}
 
 {% block footer %}

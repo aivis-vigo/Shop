@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Core\Redirect;
 use App\Core\TwigView;
 use App\Services\Listing\Create\CreateListingRequest;
 use App\Services\Listing\Create\CreateListingService;
@@ -15,7 +16,7 @@ class ListingController
     {
         $options = (new ReadOptionService())->fetchAll()->options();
 
-        return new TwigView('create-listing', [
+        return new TwigView('Listings/create-listing', [
             'authorized' => isset($_SESSION['authorized']),
             'options' => $options
         ]);
@@ -27,19 +28,20 @@ class ListingController
 
         $listing = (new ReadListingService())->fetchSingle(new ReadListingRequest($id))->listings();
 
-        return new TwigView('listing', [
+        return new TwigView('Listings/listing', [
             'authorized' => isset($_SESSION['authorized']),
             'listing' => $listing
         ]);
     }
 
-    public function create(): void
+    public function create(): Redirect
     {
-        (new CreateListingService())->execute(new CreateListingRequest($_POST));
+        $status = (new CreateListingService())->execute(new CreateListingRequest($_POST));
+
+        setcookie('status', $status->message(), time() + 10);
 
         // TODO: redirect to created listing
-        header("location: http://localhost:8000");
-        exit;
+        return new Redirect('/');
     }
 
     public function read(array $vars): TwigView
@@ -48,7 +50,7 @@ class ListingController
 
         $listings = (new ReadListingService())->execute(new ReadListingRequest($listings))->listings();
 
-        return new TwigView('listings', [
+        return new TwigView('Listings/listings', [
             'authorized' => isset($_SESSION['authorized']),
             'listings' => $listings
         ]);

@@ -2,8 +2,10 @@
 
 require_once '../vendor/autoload.php';
 
+use App\Core\Redirect;
 use App\Core\Renderer;
 use App\Core\Router;
+use App\Core\TwigView;
 use Dotenv\Dotenv;
 
 session_start();
@@ -15,4 +17,11 @@ $routes = require_once '../routes.php';
 $response = Router::response($routes);
 $renderer = new Renderer('../app/Views');
 
-echo $renderer->render($response);
+if ($response instanceof TwigView) {
+    echo $renderer->render($response);
+}
+
+if ($response instanceof Redirect) {
+    header('location: ' . $response->path());
+    exit;
+}

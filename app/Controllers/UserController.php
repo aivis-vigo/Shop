@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Core\Redirect;
 use App\Core\TwigView;
 use App\Services\User\Create\CreateUserRequest;
 use App\Services\User\Create\CreateUserService;
@@ -31,33 +32,30 @@ class UserController
         ]);
     }
 
-    public function update(): void
+    public function update(): Redirect
     {
         $id = $_SESSION['id'];
 
         (new UpdateUserService())->execute(new UpdateUserRequest($id, $_POST));
 
-        header("Location: http://localhost:8000/profile");
-        exit;
+        return new Redirect('/profile');
     }
 
-    public function updatePassword(): void
+    public function updatePassword(): Redirect
     {
         $id = $_SESSION['id'];
 
         (new UpdatePasswordService())->execute(new UpdatePasswordRequest($id, $_POST));
 
-        header("Location: http://localhost:8000/profile");
-        exit;
+        return new Redirect('/profile');
     }
 
-    public function delete(): void
+    public function delete(): Redirect
     {
         $request = new DeleteUserRequest($_SESSION['email']);
 
         (new DeleteUserService())->execute($request->email());
 
-        header("Location: http://localhost:8000");
-        exit;
+        return new Redirect('/');
     }
 }

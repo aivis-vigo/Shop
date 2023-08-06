@@ -6,11 +6,10 @@ use App\Repositories\Listing\PdoListingRepository;
 
 class CreateListingService
 {
-    // TODO: select sections
-    // TODO: display sections in list
-    // TODO: based on selected section display sections options (Vue.js)
-    public function execute(CreateListingRequest $request): void
+    public function execute(CreateListingRequest $request): CreateListingResponse
     {
-        (new PdoListingRepository)->create($request);
+        $message = (new PdoListingRepository)->create($request);
+
+        return new CreateListingResponse($message);
     }
 }
