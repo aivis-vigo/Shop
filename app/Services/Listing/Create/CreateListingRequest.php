@@ -15,7 +15,7 @@ class CreateListingRequest
         $this->optionId = (int)$listing['option'];
         $this->title = $listing['title'];
         $this->description = $listing['description'];
-        $this->price = (int)$listing['price'];
+        $this->price = (int)str_replace('.', '', $listing['price']);
         $this->location = $listing['location'];
     }
 

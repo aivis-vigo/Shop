@@ -14,6 +14,64 @@
             Create Listing
         </h1>
         <form action="/save-listing" method="post">
+            {% verbatim %}
+                    <div id="sorted">
+                        <label for="section">
+                            Section
+                        </label>
+                        <select @change="handleSectionChange" name="section" class="w-full px-4 py-2 mt-2 text-black bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring">
+                            <option v-for="section in sections"
+                                    :key="section.id"
+                                    :value="section.id">
+                                {{ section.title }}
+                            </option>
+                        </select>
+
+                        <label for="option">
+                            Sub-Section
+                        </label>
+                        <select name="option"
+                                class="block w-full px-4 py-2 mt-2 text-black bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring">
+                            <option v-for="option in filteredOptions"
+                                    :key="option.id"
+                                    :value="option.id">
+                                {{ option.title }}
+                            </option>
+                        </select>
+                    </div>
+                {% endverbatim %}
+
+            <script>
+                const {createApp, ref, computed, onUpdated } = Vue
+
+                sections = {{ sections|json_encode|raw }}
+                    options =  {{ options|json_encode|raw }}
+
+                const selectedSection = ref(1);
+
+                const selectOption = (id) => {
+                    return options.filter((option) => option.section_id === id);
+                };
+
+                const filteredOptions = computed(() => {
+                    return selectOption(selectedSection.value);
+                });
+
+                const handleSectionChange = (event) => {
+                    selectedSection.value = parseInt(event.target.value);
+                };
+
+                createApp({
+                    setup() {
+                        return  {
+                            selectedSection,
+                            sections,
+                            filteredOptions,
+                            handleSectionChange
+                        };
+                    }
+                }).mount('#sorted')
+            </script>
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                 <div>
                     <label for="title">
@@ -22,19 +80,8 @@
                     <input id="title"
                            name="title"
                            type="text"
-                           class="block w-full px-4 py-2 mt-2 text-black bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring">
-                </div>
-                <div>
-                    <label for="section">
-                        Section
-                    </label>
-                    <select name="section"
-                            class="block w-full px-4 py-2 mt-2 text-black bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring">
-                        <option>Surabaya</option>
-                        <option>Jakarta</option>
-                        <option>Tangerang</option>
-                        <option>Bandung</option>
-                    </select>
+                           class="block w-full px-4 py-2 mt-2 text-black bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+                           placeholder="First Officer">
                 </div>
                 <div>
                     <label for="description">
@@ -43,19 +90,9 @@
                     <textarea id="description"
                               name="description"
                               type="textarea"
-                              class="block w-full px-4 py-2 mt-2 text-black bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"></textarea>
-                </div>
-                <div>
-                    <label for="option">
-                        Option
-                    </label>
-                    <select id="option" name="option" class="block w-full px-4 py-2 mt-2 text-black bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring">
-                        {% for option in options %}
-                            <option value="{{ option.id }}">
-                                {{ option.title }}
-                            </option>
-                        {% endfor %}
-                    </select>
+                              class="block w-full px-4 py-2 mt-2 text-black bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+                              placeholder="Space for more information...">
+                    </textarea>
                 </div>
                 <div>
                     <label for="price">
@@ -64,8 +101,9 @@
                     <input id="price"
                            name="price"
                            type="number"
-                           placeholder="4.99 &euro;"
-                           class="block w-full px-4 py-2 mt-2 text-black bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring">
+                           step="0.01"
+                           class="block w-full px-4 py-2 mt-2 text-black bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+                           placeholder="785.55 &euro;">
                 </div>
                 <div>
                     <label for="location">
@@ -74,44 +112,45 @@
                     <input id="location"
                            name="location"
                            type="text"
-                           placeholder="Latvia, Riga"
-                           class="block w-full px-4 py-2 mt-2 text-black bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring">
+                           class="block w-full px-4 py-2 mt-2 text-black bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+                           placeholder="Latvia, Riga">
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-white">
-                        Image
-                    </label>
-                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                        <div class="space-y-1 text-center">
-                            <svg class="mx-auto h-12 w-12"
-                                 stroke="currentColor"
-                                 fill="none"
-                                 viewBox="0 0 48 48"
-                                 aria-hidden="true">
-                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                                      stroke-width="2"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"/>
-                            </svg>
-                            <div class="flex text-sm text-gray-600">
-                                <label for="file-upload"
-                                       class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-white">
+                    Image
+                </label>
+                <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                    <div class="space-y-1 text-center">
+                        <svg class="mx-auto h-12 w-12"
+                             stroke="currentColor"
+                             fill="none"
+                             viewBox="0 0 48 48"
+                             aria-hidden="true">
+                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"/>
+                        </svg>
+                        <div class="flex text-sm text-gray-600">
+                            <label for="file-upload"
+                                   class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                     <span class="">
                                         Upload a file
                                     </span>
-                                    <input id="file-upload"
-                                           name="file-upload"
-                                           type="file"
-                                           class="sr-only">
-                                </label>
-                                <p class="pl-1">
-                                    or drag and drop
-                                </p>
-                            </div>
-                            <p class="text-xs">
-                                PNG, JPG, GIF up to 10MB
+                                <input id="file-upload"
+                                       name="file-upload"
+                                       type="file"
+                                       class="sr-only">
+                            </label>
+                            <p class="pl-1">
+                                or drag and drop
                             </p>
                         </div>
+                        <p class="text-xs">
+                            PNG, JPG, GIF up to 10MB
+                        </p>
                     </div>
                 </div>
             </div>

@@ -22,10 +22,6 @@ class PdoListingRepository
         $this->query = Database::connect();
     }
 
-    // TODO: convert price to int
-    // TODO: select sections
-    // TODO: display sections in list
-    // TODO: based on selected section display sections options (Vue.js)
     public function create(CreateListingRequest $listing): string
     {
         try {

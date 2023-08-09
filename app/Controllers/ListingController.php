@@ -9,19 +9,25 @@ use App\Services\Listing\Create\CreateListingService;
 use App\Services\Listing\Read\ReadListingRequest;
 use App\Services\Listing\Read\ReadListingService;
 use App\Services\Option\Read\ReadOptionService;
+use App\Services\Section\Read\ReadSectionService;
 
+// TODO: popup should disappear after closing
 class ListingController
 {
     public function index(): TwigView
     {
+        $sections = (new ReadSectionService())->execute()->data();
         $options = (new ReadOptionService())->fetchAll()->options();
 
         return new TwigView('Listings/create-listing', [
             'authorized' => isset($_SESSION['authorized']),
+            'sections' => $sections,
             'options' => $options
         ]);
     }
 
+    // TODO: styling needs to be fixed
+    // TODO: add sellers information
     public function show(array $vars): TwigView
     {
         $id = (int)($vars['listing']);

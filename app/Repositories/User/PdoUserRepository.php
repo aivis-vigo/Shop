@@ -19,7 +19,6 @@ class PdoUserRepository
 {
     private QueryBuilder $query;
 
-
     /**
      * @throws Exception
      */
