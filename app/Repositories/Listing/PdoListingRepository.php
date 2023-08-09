@@ -49,9 +49,9 @@ class PdoListingRepository
                 ->setParameter(5, Carbon::now()->toDateTimeString())
                 ->executeQuery();
 
-            return "Success";
+            return "Listing created successfully!";
         } catch (PDOException|Exception) {
-            return "Failed";
+            return "Something went wrong creating a listing!";
         }
     }
 
