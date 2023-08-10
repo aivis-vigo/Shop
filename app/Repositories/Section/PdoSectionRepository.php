@@ -19,15 +19,18 @@ class PdoSectionRepository
         $this->query = Database::connect();
     }
 
-    public function read(): ?array
+    public function read(): array
     {
         try {
             return $this->query
                 ->select('*')
-                ->from('sections')
+                ->from('sections', 's')
+                ->leftJoin('s', 'options', 'o', 's.id = o.section_id')
                 ->fetchAllAssociative();
+
+            // ->orderBy('title', 'ASC')
         } catch (PDOException|Exception) {
-            return null;
+            return [];
         }
     }
 }

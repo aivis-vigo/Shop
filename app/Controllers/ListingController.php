@@ -12,6 +12,7 @@ use App\Services\Option\Read\ReadOptionService;
 use App\Services\Section\Read\ReadSectionService;
 
 // TODO: popup should disappear after closing
+// TODO: numbers like 500 should be 500 not 5
 class ListingController
 {
     public function index(): TwigView
