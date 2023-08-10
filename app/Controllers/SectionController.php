@@ -9,20 +9,32 @@ use App\Services\Option\Read\ReadOptionService;
 
 class SectionController
 {
-    // TODO: description -> section_name
-    // TODO: add section description field
     public function index(): TwigView
     {
-        $sectionOptions = [];
         $authorized = $_SESSION['authorized'];
         $status = $_COOKIE['status'] ?? null;
 
-        $sections = (new ReadSectionService())->execute();
+        $response = (new ReadSectionService())->execute();
 
-        foreach ($sections->data() as $option) {
+        $sections = $this->structureSection($response->data());
+
+        return new TwigView('home', [
+            'authorized' => isset($authorized),
+            'status' => isset($status),
+            'message' => $status,
+            'sections' => $sections
+        ]);
+    }
+
+    private function structureSection(array $sections): array
+    {
+        $sectionOptions = [];
+
+        foreach ($sections as $option) {
             if (!isset($sectionOptions[$option['section_id']])) {
                 $sectionOptions[$option['section_id']] = [
-                    'title' => $option['description'],
+                    'title' => $option['section'],
+                    'description' => $option['description'],
                     'id' => $option['section_id'],
                     'options' => []
                 ];
@@ -35,25 +47,6 @@ class SectionController
 
         asort($sectionOptions);
 
-        return new TwigView('home', [
-            'authorized' => isset($authorized),
-            'status' => isset($status),
-            'message' => $status,
-            'sections' => $sectionOptions
-        ]);
-    }
-
-    // TODO: display number of each options listings
-    // TODO: this should be OptionController index
-    public function show(array $vars): TwigView
-    {
-        $sectionId = (int)$vars['id'];
-
-        $options = (new ReadOptionService())->execute(new ReadOptionsRequest($sectionId))->options();
-
-        return new TwigView('options', [
-            'authorized' => isset($_SESSION['authorized']),
-            'options' => $options
-        ]);
+        return $sectionOptions;
     }
 }

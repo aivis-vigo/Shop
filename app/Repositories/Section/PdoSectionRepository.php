@@ -27,8 +27,6 @@ class PdoSectionRepository
                 ->from('sections', 's')
                 ->leftJoin('s', 'options', 'o', 's.id = o.section_id')
                 ->fetchAllAssociative();
-
-            // ->orderBy('title', 'ASC')
         } catch (PDOException|Exception) {
             return [];
         }

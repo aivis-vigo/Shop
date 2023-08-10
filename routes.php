@@ -1,13 +1,14 @@
 <?php declare(strict_types=1);
 
 use App\Controllers\ListingController;
-use App\Controllers\SectionController;
+use App\Controllers\OptionController;
 use App\Controllers\RegistrationController;
 use App\Controllers\AuthorizationController;
+use App\Controllers\SectionController;
 use App\Controllers\UserController;
 
 return [
-    // Home
+    // Home/Sections
     ['GET', '/', [SectionController::class, 'index']],
 
     // Registration
@@ -29,15 +30,15 @@ return [
     ['GET', '/create-listing', [ListingController::class, 'index']],
     ['POST', '/save-listing', [ListingController::class, 'create']],
 
-    // Sections
-    ['GET', '/jobs/{id:\d+}', [SectionController::class, 'show']],
-    ['GET', '/electronics/{id:\d+}', [SectionController::class, 'show']],
-    ['GET', '/transport/{id:\d+}', [SectionController::class, 'show']],
-    ['GET', '/clothing/{id:\d+}', [SectionController::class, 'show']],
-    ['GET', '/animals/{id:\d+}', [SectionController::class, 'show']],
-    ['GET', '/properties/{id:\d+}', [SectionController::class, 'show']],
-    ['GET', '/furniture/{id:\d+}', [SectionController::class, 'show']],
-    ['GET', '/hobbies/{id:\d+}', [SectionController::class, 'show']],
+    // Section subsections
+    ['GET', '/jobs/{id:\d+}', [OptionController::class, 'index']],
+    ['GET', '/electronics/{id:\d+}', [OptionController::class, 'index']],
+    ['GET', '/transport/{id:\d+}', [OptionController::class, 'index']],
+    ['GET', '/clothing/{id:\d+}', [OptionController::class, 'index']],
+    ['GET', '/animals/{id:\d+}', [OptionController::class, 'index']],
+    ['GET', '/properties/{id:\d+}', [OptionController::class, 'index']],
+    ['GET', '/furniture/{id:\d+}', [OptionController::class, 'index']],
+    ['GET', '/hobbies/{id:\d+}', [OptionController::class, 'index']],
 
     // Display All Listings
     ['GET', '/jobs/{title}/{id:\d+}/', [ListingController::class, 'read']],

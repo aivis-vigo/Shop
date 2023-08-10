@@ -239,7 +239,7 @@
                                class="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
                                 <div class="relative pb-48 overflow-hidden">
                                     <img class="absolute inset-0 h-full w-full object-cover"
-                                         src="https://placehold.co/600x400?text=Placeholder"
+                                         src="https://placehold.co/600x400?text={{ section.title }}"
                                          alt="{{ section.title }}">
                                 </div>
                                 <div class="p-4">
@@ -247,7 +247,7 @@
                                         {{ section.title }} ({{ section.options|length }})
                                     </h2>
                                     <p class="text-sm">
-                                        Description goes here
+                                        {{ section.description }}
                                     </p>
                                 </div>
                             </a>
