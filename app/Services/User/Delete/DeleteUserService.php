@@ -6,7 +6,7 @@ use App\Repositories\User\PdoUserRepository;
 
 class DeleteUserService
 {
-    public function execute(string $user): void
+    public function execute(DeleteUserRequest $user): void
     {
         (new PdoUserRepository())->delete($user);
     }

@@ -8,6 +8,6 @@ class UpdateUserService
 {
     public function execute(UpdateUserRequest $request): void
     {
-        (new PdoUserRepository())->update($request);
+        (new PdoUserRepository())->updateInfo($request);
     }
 }

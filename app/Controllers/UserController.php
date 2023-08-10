@@ -17,26 +17,33 @@ use App\Services\User\Update\UpdateUserService;
 
 class UserController
 {
-    public function create(): void
+    public function create(): Redirect
     {
-        (new CreateUserService())->execute(new CreateUserRequest($_POST));
+        $user = $_POST;
+
+        (new CreateUserService())->execute(new CreateUserRequest($user));
+
+        return new Redirect('/profile');
     }
 
     public function show(): TwigView
     {
-        $user = (new ReadUserService())->execute(new ReadUserRequest($_SESSION['email']))->data();
+        $email = $_SESSION['email'];
+
+        $user = (new ReadUserService())->execute(new ReadUserRequest($email));
 
         return new TwigView('Profile/profile', [
             'authorized' => isset($_SESSION['authorized']),
-            'user' => $user
+            'user' => $user->data()
         ]);
     }
 
-    public function update(): Redirect
+    public function updateInfo(): Redirect
     {
         $id = $_SESSION['id'];
+        $data = $_POST;
 
-        (new UpdateUserService())->execute(new UpdateUserRequest($id, $_POST));
+        (new UpdateUserService())->execute(new UpdateUserRequest($id, $data));
 
         return new Redirect('/profile');
     }
@@ -44,17 +51,16 @@ class UserController
     public function updatePassword(): Redirect
     {
         $id = $_SESSION['id'];
+        $passwords = $_POST;
 
-        (new UpdatePasswordService())->execute(new UpdatePasswordRequest($id, $_POST));
+        (new UpdatePasswordService())->execute(new UpdatePasswordRequest($id, $passwords));
 
         return new Redirect('/profile');
     }
 
     public function delete(): Redirect
     {
-        $request = new DeleteUserRequest($_SESSION['email']);
-
-        (new DeleteUserService())->execute($request->email());
+        (new DeleteUserService())->execute(new DeleteUserRequest($_SESSION['email']));
 
         return new Redirect('/');
     }

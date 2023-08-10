@@ -15,14 +15,12 @@ class ReadUserResponse
 
     public function data(): array
     {
-        $user = $this->user;
-
         return [
-            'id' => $user->id(),
-            'firstName' => $user->firstName(),
-            'lastName' => $user->lastName(),
-            'email' => $user->email(),
-            'password' => $user->password()
+            'id' => $this->user->id(),
+            'firstName' => $this->user->firstName(),
+            'lastName' => $this->user->lastName(),
+            'email' => $this->user->email(),
+            'password' => $this->user->password()
         ];
     }
 }

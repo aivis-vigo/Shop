@@ -8,7 +8,7 @@ class ReadUserService
 {
     public function execute(ReadUserRequest $request): ReadUserResponse
     {
-        $response = (new PdoUserRepository())->read($request->email());
+        $response = (new PdoUserRepository())->read($request);
 
         return new ReadUserResponse($response);
     }

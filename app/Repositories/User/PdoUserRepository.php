@@ -3,10 +3,14 @@
 namespace App\Repositories\User;
 
 use App\Core\Database;
+use App\Core\Redirect;
 use App\Exceptions\PasswordsDoNotMatchException;
 use App\Exceptions\UserAlreadyExistsException;
 use App\Models\User;
+use App\Services\User\Create\CreateUserRequest;
+use App\Services\User\Delete\DeleteUserRequest;
 use App\Services\User\Password\UpdatePasswordRequest;
+use App\Services\User\Read\ReadUserRequest;
 use App\Services\User\Update\UpdateUserRequest;
 use Carbon\Carbon;
 use Doctrine\DBAL\Exception;
@@ -14,7 +18,6 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use PDOException;
 use function header;
 
-// TODO: return status message for action
 class PdoUserRepository
 {
     private QueryBuilder $query;
@@ -27,50 +30,25 @@ class PdoUserRepository
         $this->query = Database::connect();
     }
 
-    public function validate(array $user): void
+    public function validate(CreateUserRequest $user): void
     {
-        $newUser = $this->buildUser($user);
-        $confirmPassword = $user['confirm-password'];
-
         try {
             $validateUser = $this->query
                 ->select('*')
                 ->from('users')
                 ->where('email = ?')
-                ->setParameter(0, $newUser->email())
+                ->setParameter(0, $user->email())
                 ->executeStatement();
 
             if ($validateUser > 0) throw new UserAlreadyExistsException();
-            if ($newUser->password() !== $confirmPassword) throw new PasswordsDoNotMatchException();
-
-            $this->create($newUser);
+            if ($user->password() !== $user->confirmPassword()) throw new PasswordsDoNotMatchException();
         } catch (UserAlreadyExistsException|PasswordsDoNotMatchException|Exception) {
             header('Location: ' . $_SERVER['HTTP_REFERER']);
             exit;
         }
     }
 
-    public function validatePassword(UpdatePasswordRequest $user): void
-    {
-        try {
-            $currentPassword = $this->query
-                ->select('password')
-                ->from('users')
-                ->where('id = ?')
-                ->setParameter(0, $user->id())
-                ->fetchOne();
-
-            $currentPasswordMatch = password_verify($user->currentPassword(), $currentPassword);
-            $newPasswordsMatch = ($user->newPassword() == $user->confirmNewPassword());
-            $newPassword = password_hash($user->newPassword(), PASSWORD_BCRYPT);
-
-            if ($currentPasswordMatch && $newPasswordsMatch) $this->updatePassword($user->id(), $newPassword);
-        } catch (PDOException|Exception) {
-            return;
-        }
-    }
-
-    public function create(User $user): void
+    public function create(CreateUserRequest $user): void
     {
         try {
             $password = password_hash($user->password(), PASSWORD_BCRYPT);
@@ -99,35 +77,34 @@ class PdoUserRepository
 
             $_SESSION['authorized'] = true;
             $_SESSION['email'] = $user->email();
-
-            header("Location: http://localhost:8000/profile");
-            exit;
         } catch (PDOException|Exception) {
-            return;
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit;
         }
     }
 
-    public function read(string $email): ?User
+    public function read(ReadUserRequest $user): ?User
     {
         try {
-            $user = $this->query
+            $requested = $this->query
                 ->select("*")
                 ->from("users")
                 ->where("email = ?")
-                ->setParameter(0, $email)
+                ->setParameter(0, $user->email())
                 ->fetchAssociative();
 
-            $activeUser = $this->buildUser($user);
-
+            $activeUser = $this->buildUser($requested);
             $_SESSION['id'] = $activeUser->id();
 
             return $activeUser;
         } catch (PDOException|Exception) {
-            return null;
+            session_destroy();
+            header('Location: /login');
+            exit;
         }
     }
 
-    public function update(UpdateUserRequest $user): void
+    public function updateInfo(UpdateUserRequest $user): void
     {
         try {
             $this->query
@@ -145,7 +122,29 @@ class PdoUserRepository
 
             $_SESSION['email'] = $user->email();
         } catch (PDOException|Exception) {
-            return;
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit;
+        }
+    }
+
+    public function validatePassword(UpdatePasswordRequest $user): void
+    {
+        try {
+            $currentPassword = $this->query
+                ->select('password')
+                ->from('users')
+                ->where('id = ?')
+                ->setParameter(0, $user->id())
+                ->fetchOne();
+
+            $currentPasswordMatch = password_verify($user->currentPassword(), $currentPassword);
+            $newPasswordsMatch = ($user->newPassword() == $user->confirmNewPassword());
+            $newPassword = password_hash($user->newPassword(), PASSWORD_BCRYPT);
+
+            if ($currentPasswordMatch && $newPasswordsMatch) $this->updatePassword($user->id(), $newPassword);
+        } catch (PDOException|Exception) {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit;
         }
     }
 
@@ -159,22 +158,24 @@ class PdoUserRepository
                 ->where('id = ' . $id)
                 ->executeQuery();
         } catch (PDOException|Exception) {
-            return;
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit;
         }
     }
 
-    public function delete(string $user): void
+    public function delete(DeleteUserRequest $user): void
     {
         try {
             $this->query
                 ->delete('users')
                 ->where('email = ?')
-                ->setParameter(0, $user)
+                ->setParameter(0, $user->email())
                 ->executeQuery();
 
             session_destroy();
-        } catch (Exception) {
-            return;
+        } catch (PDOException|Exception) {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit;
         }
     }
 

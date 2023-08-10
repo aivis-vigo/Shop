@@ -8,6 +8,7 @@ class CreateUserService
 {
     public function execute(CreateUserRequest $request): void
     {
-        (new PdoUserRepository())->validate($request->userInfo());
+        (new PdoUserRepository())->validate($request);
+        (new PdoUserRepository())->create($request);
     }
 }
