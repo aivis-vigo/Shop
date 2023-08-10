@@ -6,6 +6,7 @@ use App\Core\TwigView;
 use App\Services\Option\Read\ReadOptionService;
 use App\Services\Option\Read\ReadOptionsRequest;
 
+// TODO: finished the day here
 class OptionController
 {
     public function index(array $vars): TwigView
@@ -14,10 +15,11 @@ class OptionController
         $sectionId = (int)$vars['id'];
 
         $options = (new ReadOptionService())->execute(new ReadOptionsRequest($sectionId));
+        var_dump($options->data());
 
         return new TwigView('options', [
             'authorized' => isset($authorized),
-            'options' => $options->options()
+            'options' => $options->data()
         ]);
     }
 }

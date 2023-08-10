@@ -4,15 +4,15 @@ namespace App\Services\Option\Read;
 
 class ReadOptionResponse
 {
-    private array $options;
+    private array $data;
 
-    public function __construct(array $options)
+    public function __construct(array $data)
     {
-        $this->options = $options;
+        $this->data = $data;
     }
 
-    public function options(): array
+    public function data(): array
     {
-        return $this->options;
+        return $this->data;
     }
 }

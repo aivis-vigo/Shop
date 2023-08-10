@@ -19,7 +19,7 @@ class PdoOptionRepository
         $this->query = Database::connect();
     }
 
-    public function read(int $id): ?array
+    public function read(int $id): array
     {
         try {
             return $this->query
@@ -30,11 +30,11 @@ class PdoOptionRepository
                 ->setParameter(0, $id)
                 ->fetchAllAssociative();
         } catch (PDOException|Exception) {
-            return null;
+            return [];
         }
     }
 
-    public function fetchAll(): ?array
+    public function fetchAll(): array
     {
         try {
             return $this->query
@@ -42,7 +42,7 @@ class PdoOptionRepository
                 ->from("options")
                 ->fetchAllAssociative();
         } catch (PDOException|Exception) {
-            return null;
+            return [];
         }
     }
 }
