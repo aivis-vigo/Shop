@@ -23,9 +23,9 @@ class PdoOptionRepository
     {
         try {
             return $this->query
-                ->select("o.*")
+                ->select("*, o.title, o.id")
                 ->from("options", "o")
-                ->join("o", "sections", "s", "s.id = o.section_id")
+                ->leftJoin("o", "listing", "l", "o.id = l.option_id")
                 ->where("section_id = ?")
                 ->setParameter(0, $id)
                 ->fetchAllAssociative();

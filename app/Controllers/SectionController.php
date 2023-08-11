@@ -11,7 +11,7 @@ class SectionController
 {
     public function index(): TwigView
     {
-        $authorized = $_SESSION['authorized'];
+        $authorized = $_SESSION['authorized'] ?? null;
         $status = $_COOKIE['status'] ?? null;
 
         $response = (new ReadSectionService())->execute();
@@ -26,6 +26,7 @@ class SectionController
         ]);
     }
 
+    // TODO: db doesn't need sections column?
     private function structureSection(array $sections): array
     {
         $sectionOptions = [];
