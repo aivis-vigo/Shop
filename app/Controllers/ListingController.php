@@ -11,14 +11,13 @@ use App\Services\Listing\Read\ReadListingService;
 use App\Services\Option\Read\ReadOptionService;
 use App\Services\Section\Read\ReadSectionService;
 
-// TODO: popup should disappear after closing
 // TODO: numbers like 500 should be 500 not 5
 class ListingController
 {
     public function index(): TwigView
     {
         $sections = (new ReadSectionService())->execute()->data();
-        $options = (new ReadOptionService())->fetchAll()->options();
+        $options = (new ReadOptionService())->fetchAll()->data();
 
         return new TwigView('Listings/create-listing', [
             'authorized' => isset($_SESSION['authorized']),
@@ -41,13 +40,14 @@ class ListingController
         ]);
     }
 
+    // TODO: need to pass option name
+    // TODO: redirect to created listing
     public function create(): Redirect
     {
         $status = (new CreateListingService())->execute(new CreateListingRequest($_POST));
 
         setcookie('status', $status->message(), time() + 10);
 
-        // TODO: redirect to created listing
         return new Redirect('/');
     }
 

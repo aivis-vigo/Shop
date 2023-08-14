@@ -23,7 +23,6 @@ class OptionController
         ]);
     }
 
-    // TODO: finished here
     private function structureOptions(array $options): array
     {
         $collected = [];
@@ -37,7 +36,7 @@ class OptionController
                 ];
             }
 
-            if (isset($listing['option_name'])) $collected[$listing['id']]['listings'][]= $listing['option_name'];
+            if (isset($listing['option_name'])) $collected[$listing['id']]['listings'][] = $listing['option_name'];
         }
 
         asort($collected);

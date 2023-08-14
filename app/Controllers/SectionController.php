@@ -26,7 +26,6 @@ class SectionController
         ]);
     }
 
-    // TODO: db doesn't need sections column?
     private function structureSection(array $sections): array
     {
         $sectionOptions = [];

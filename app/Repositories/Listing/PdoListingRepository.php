@@ -30,6 +30,7 @@ class PdoListingRepository
                 ->values(
                     [
                         'option_id' => '?',
+                        'option_name' => '?',
                         'title' => '?',
                         'description' => '?',
                         'price' => '?',
@@ -38,16 +39,17 @@ class PdoListingRepository
                     ]
                 )
                 ->setParameter(0, $listing->optionId())
-                ->setParameter(1, $listing->title())
-                ->setParameter(2, $listing->description())
-                ->setParameter(3, $listing->price())
-                ->setParameter(4, $listing->location())
-                ->setParameter(5, Carbon::now()->toDateTimeString())
+                ->setParameter(1, $listing->optionName())
+                ->setParameter(2, $listing->title())
+                ->setParameter(3, $listing->description())
+                ->setParameter(4, $listing->price())
+                ->setParameter(5, $listing->location())
+                ->setParameter(6, Carbon::now()->toDateTimeString())
                 ->executeQuery();
 
             return "Listing created successfully!";
         } catch (PDOException|Exception) {
-            return "Something went wrong creating a listing!";
+            return "Something went wrong while creating a listing!";
         }
     }
 
