@@ -44,6 +44,7 @@ class ListingController
     // TODO: redirect to created listing
     public function create(): Redirect
     {
+        var_dump($_POST);
         $status = (new CreateListingService())->execute(new CreateListingRequest($_POST));
 
         setcookie('status', $status->message(), time() + 10);
