@@ -31,6 +31,7 @@ class PdoListingRepository
                     [
                         'option_id' => '?',
                         'option_name' => '?',
+                        'author' => '?',
                         'title' => '?',
                         'description' => '?',
                         'price' => '?',
@@ -40,11 +41,12 @@ class PdoListingRepository
                 )
                 ->setParameter(0, $listing->optionId())
                 ->setParameter(1, $listing->optionName())
-                ->setParameter(2, $listing->title())
-                ->setParameter(3, $listing->description())
-                ->setParameter(4, $listing->price())
-                ->setParameter(5, $listing->location())
-                ->setParameter(6, Carbon::now()->toDateTimeString())
+                ->setParameter(2, $listing->author())
+                ->setParameter(3, $listing->title())
+                ->setParameter(4, $listing->description())
+                ->setParameter(5, $listing->price())
+                ->setParameter(6, $listing->location())
+                ->setParameter(7, Carbon::now()->toDateTimeString())
                 ->executeQuery();
 
             return "Listing created successfully!";

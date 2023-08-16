@@ -10,6 +10,8 @@ use App\Services\Listing\Read\ReadListingRequest;
 use App\Services\Listing\Read\ReadListingService;
 use App\Services\Option\Read\ReadOptionService;
 use App\Services\Section\Read\ReadSectionService;
+use App\Services\User\Read\ReadUserRequest;
+use App\Services\User\Read\ReadUserService;
 
 // TODO: numbers like 500 should be 500 not 5
 class ListingController
@@ -28,24 +30,31 @@ class ListingController
 
     // TODO: styling needs to be fixed
     // TODO: add sellers information
+    // TODO: why there isnt number being returned
     public function show(array $vars): TwigView
     {
         $id = (int)($vars['listing']);
 
         $listing = (new ReadListingService())->fetchSingle(new ReadListingRequest($id))->listings();
 
+        $author = $listing['author'];
+        $user = (new ReadUserService())->execute(new ReadUserRequest($author))->data();
+        var_dump($user);
+
         return new TwigView('Listings/listing', [
             'authorized' => isset($_SESSION['authorized']),
-            'listing' => $listing
+            'listing' => $listing,
+            'user' => $user
         ]);
     }
 
-    // TODO: need to pass option name
     // TODO: redirect to created listing
     public function create(): Redirect
     {
-        var_dump($_POST);
-        $status = (new CreateListingService())->execute(new CreateListingRequest($_POST));
+        $author = $_SESSION['email'];
+        $listing =  $_POST;
+
+        $status = (new CreateListingService())->execute(new CreateListingRequest($author, $listing));
 
         setcookie('status', $status->message(), time() + 10);
 

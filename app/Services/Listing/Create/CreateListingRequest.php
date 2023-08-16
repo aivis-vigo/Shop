@@ -4,6 +4,7 @@ namespace App\Services\Listing\Create;
 
 class CreateListingRequest
 {
+    private string $author;
     private int $optionId;
     private string $optionName;
     private string $title;
@@ -11,14 +12,20 @@ class CreateListingRequest
     private int $price;
     private string $location;
 
-    public function __construct(array $listing)
+    public function __construct(string $author, array $listing)
     {
+        $this->author = $author;
         $this->optionId = (int)$listing['option'];
         $this->optionName = $listing['option_name'];
         $this->title = $listing['title'];
         $this->description = $listing['description'];
         $this->price = (int)str_replace('.', '', $listing['price']);
         $this->location = $listing['location'];
+    }
+
+    public function author(): string
+    {
+        return $this->author;
     }
 
     public function optionId(): int

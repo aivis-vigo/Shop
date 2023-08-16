@@ -8,6 +8,7 @@ class User
     private string $firstName;
     private string $lastName;
     private string $email;
+    private int $number;
     private string $password;
 
     public function __construct(
@@ -15,6 +16,7 @@ class User
         string $firstName,
         string $lastName,
         string $email,
+        int $number,
         string $password
     )
     {
@@ -22,6 +24,7 @@ class User
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
+        $this->number = $number;
         $this->password = $password;
     }
 
@@ -43,6 +46,11 @@ class User
     public function email(): string
     {
         return $this->email;
+    }
+
+    public function number(): int
+    {
+        return $this->number;
     }
 
     public function password(): string

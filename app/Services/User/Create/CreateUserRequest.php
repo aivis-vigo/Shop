@@ -7,6 +7,7 @@ class CreateUserRequest
     private string $firstName;
     private string $lastName;
     private string $email;
+    private int $number;
     private string $password;
     private string $confirmPassword;
 
@@ -15,6 +16,7 @@ class CreateUserRequest
         $this->firstName = $user['firstName'];
         $this->lastName = $user['lastName'];
         $this->email = $user['email'];
+        $this->number = (int)$user['number'];
         $this->password = $user['password'];
         $this->confirmPassword = $user['confirm-password'];
     }
@@ -32,6 +34,11 @@ class CreateUserRequest
     public function email(): string
     {
         return $this->email;
+    }
+
+    public function number(): int
+    {
+        return $this->number;
     }
 
     public function password(): string

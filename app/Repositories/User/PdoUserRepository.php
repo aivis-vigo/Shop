@@ -60,6 +60,7 @@ class PdoUserRepository
                         'firstName' => '?',
                         'lastName' => '?',
                         'email' => '?',
+                        'number' => '?',
                         'password' => '?',
                         'created_at' => '?',
                         'updated_at' => '?'
@@ -68,9 +69,10 @@ class PdoUserRepository
                 ->setParameter(0, $user->firstName())
                 ->setParameter(1, $user->lastName())
                 ->setParameter(2, $user->email())
-                ->setParameter(3, $password)
-                ->setParameter(4, Carbon::now()->toDateTimeString())
+                ->setParameter(3, $user->number())
+                ->setParameter(4, $password)
                 ->setParameter(5, Carbon::now()->toDateTimeString())
+                ->setParameter(6, Carbon::now()->toDateTimeString())
                 ->executeQuery();
 
             session_regenerate_id();
@@ -83,7 +85,7 @@ class PdoUserRepository
         }
     }
 
-    public function read(ReadUserRequest $user): ?User
+    public function read(ReadUserRequest $user): User|Redirect
     {
         try {
             $requested = $this->query
@@ -99,8 +101,7 @@ class PdoUserRepository
             return $activeUser;
         } catch (PDOException|Exception) {
             session_destroy();
-            header('Location: /login');
-            exit;
+            return new Redirect('/login');
         }
     }
 
@@ -186,6 +187,7 @@ class PdoUserRepository
             $user['firstName'],
             $user['lastName'],
             $user['email'],
+            $user['number'],
             $user['password']
         );
     }
