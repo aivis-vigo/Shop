@@ -28,9 +28,6 @@ class ListingController
         ]);
     }
 
-    // TODO: styling needs to be fixed
-    // TODO: add sellers information
-    // TODO: why there isnt number being returned
     public function show(array $vars): TwigView
     {
         $id = (int)($vars['listing']);
@@ -39,7 +36,6 @@ class ListingController
 
         $author = $listing['author'];
         $user = (new ReadUserService())->execute(new ReadUserRequest($author))->data();
-        var_dump($user);
 
         return new TwigView('Listings/listing', [
             'authorized' => isset($_SESSION['authorized']),

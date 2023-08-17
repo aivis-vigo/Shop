@@ -9,12 +9,12 @@
 {% endblock %}
 
 {% block content %}
-    <div class="relative mx-auto w-full max-w-sm pt-6">
+    <div class="relative mx-auto w-1/2 pt-6">
         <div class="relative inline-block w-full transform transition-transform duration-300 ease-in-out">
             <div class="rounded-lg">
-                <div class="relative flex h-60 justify-center overflow-hidden rounded-lg">
-                    <div class="w-full transform transition-transform duration-500 ease-in-out hover:scale-110">
-                        <img src="https://placehold.co/600x400?text=Placeholder" alt=""/>
+                <div class="relative flex h-108 justify-center overflow-hidden rounded-lg">
+                    <div class="w-full">
+                        <img src="https://placehold.co/1200x600?text=Placeholder" alt=""/>
                     </div>
                 </div>
 
@@ -27,11 +27,10 @@
                                 </h2>
                             </div>
                         </div>
-
                         <div class="flex items-center justify-end">
                             <p class="text-primary inline-block whitespace-nowrap rounded-xl text-white font-semibold leading-tight">
                                 <span class="text-sm uppercase">&euro;</span>
-                                <span class="text-lg">{{ listing.price / 100 }}</span>
+                                <span class="text-lg">{{ listing.price }}</span>
                             </p>
                         </div>
                     </div>

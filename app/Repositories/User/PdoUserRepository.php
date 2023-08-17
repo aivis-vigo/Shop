@@ -187,7 +187,7 @@ class PdoUserRepository
             $user['firstName'],
             $user['lastName'],
             $user['email'],
-            $user['number'],
+            (int)$user['number'],
             $user['password']
         );
     }
