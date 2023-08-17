@@ -13,7 +13,9 @@
         <h1 class="text-xl font-bold capitalize">
             Create Listing
         </h1>
-        <form action="/save-listing" method="post">
+        <form action="/save-listing"
+              method="post"
+              enctype="multipart/form-data">
             {% verbatim %}
                     <div id="sorted">
                         <label for="section">
@@ -83,7 +85,7 @@
 
                 createApp({
                     setup() {
-                        return  {
+                        return {
                             optionId,
                             optionName,
                             selectedSection,
@@ -163,9 +165,9 @@
                         <div class="flex text-sm text-gray-600">
                             <label for="file-upload"
                                    class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                    <span class="">
-                                        Upload a file
-                                    </span>
+                                <span class="">
+                                    Upload a file
+                                </span>
                                 <input id="file-upload"
                                        name="file-upload"
                                        type="file"
@@ -179,6 +181,20 @@
                             PNG, JPG, GIF up to 10MB
                         </p>
                     </div>
+                </div>
+                <div class="text-m text-black justify-between mt-4 p-2 border-double border-4 border-gray-400 rounded-lg">
+                    <div class="flex justify-between">
+                        <div>
+                            title
+                        </div>
+                        <div>
+                            uploading
+                        </div>
+                        <div>
+                            percent
+                        </div>
+                    </div>
+                    <div class="h-2 bg-green-400 rounded-lg"></div>
                 </div>
             </div>
 

@@ -48,7 +48,17 @@ class ListingController
     public function create(): Redirect
     {
         $author = $_SESSION['email'];
-        $listing =  $_POST;
+        $listing = $_POST;
+        $title = random_int(10000, 99999) . '.jpg';
+        $picture = $_FILES['file-upload']['tmp_name'];
+        $path = __DIR__ . '/../../storage';
+
+        if (file_exists("$path/$title")) {
+            $title = random_int(10000, 99999) . '.jpg';
+        }
+
+        $filePath = "$path/$title";
+        move_uploaded_file($picture, $filePath);
 
         $status = (new CreateListingService())->execute(new CreateListingRequest($author, $listing));
 
