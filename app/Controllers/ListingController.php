@@ -49,16 +49,8 @@ class ListingController
     {
         $author = $_SESSION['email'];
         $listing = $_POST;
-        $title = random_int(10000, 99999) . '.jpg';
-        $picture = $_FILES['file-upload']['tmp_name'];
-        $path = __DIR__ . '/../../storage';
 
-        if (file_exists("$path/$title")) {
-            $title = random_int(10000, 99999) . '.jpg';
-        }
-
-        $filePath = "$path/$title";
-        move_uploaded_file($picture, $filePath);
+        $this->uploadPicture();
 
         $status = (new CreateListingService())->execute(new CreateListingRequest($author, $listing));
 
@@ -77,5 +69,19 @@ class ListingController
             'authorized' => isset($_SESSION['authorized']),
             'listings' => $listings
         ]);
+    }
+
+    private function uploadPicture(): void
+    {
+        $title = random_int(10000, 99999) . '.jpg';
+        $picture = $_FILES['file-upload']['tmp_name'];
+        $path = __DIR__ . '/../../storage';
+
+        if (file_exists("$path/$title")) {
+            $title = random_int(10000, 99999) . '.jpg';
+        }
+
+        $filePath = "$path/$title";
+        move_uploaded_file($picture, $filePath);
     }
 }
