@@ -55,17 +55,15 @@ class PdoUserRepository
 
             $this->query
                 ->insert('users')
-                ->values(
-                    [
-                        'firstName' => '?',
-                        'lastName' => '?',
-                        'email' => '?',
-                        'number' => '?',
-                        'password' => '?',
-                        'created_at' => '?',
-                        'updated_at' => '?'
-                    ]
-                )
+                ->values([
+                    'firstName' => '?',
+                    'lastName' => '?',
+                    'email' => '?',
+                    'number' => '?',
+                    'password' => '?',
+                    'created_at' => '?',
+                    'updated_at' => '?'
+                ])
                 ->setParameter(0, $user->firstName())
                 ->setParameter(1, $user->lastName())
                 ->setParameter(2, $user->email())

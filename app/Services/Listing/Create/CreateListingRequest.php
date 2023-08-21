@@ -9,7 +9,7 @@ class CreateListingRequest
     private string $optionName;
     private string $title;
     private string $description;
-    private int $price;
+    private float $price;
     private string $location;
 
     public function __construct(string $author, array $listing)
@@ -19,7 +19,7 @@ class CreateListingRequest
         $this->optionName = $listing['option_name'];
         $this->title = $listing['title'];
         $this->description = $listing['description'];
-        $this->price = (int)str_replace('.', '', $listing['price']);
+        $this->price = (float)$listing['price'];
         $this->location = $listing['location'];
     }
 
@@ -48,7 +48,7 @@ class CreateListingRequest
         return $this->description;
     }
 
-    public function price(): int
+    public function price(): float
     {
         return $this->price;
     }

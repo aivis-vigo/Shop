@@ -2,10 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Core\Redirect;
 use App\Core\TwigView;
-use App\Services\Option\Read\ReadOptionsRequest;
+use App\Services\Section\Create\CreateSectionRequest;
+use App\Services\Section\Create\CreateSectionService;
+use App\Services\Section\Delete\DeleteSectionRequest;
+use App\Services\Section\Delete\DeleteSectionService;
 use App\Services\Section\Read\ReadSectionService;
-use App\Services\Option\Read\ReadOptionService;
 
 class SectionController
 {
@@ -16,7 +19,7 @@ class SectionController
 
         $response = (new ReadSectionService())->execute();
 
-        $sections = $this->structureSection($response->data());
+        $sections = $this->structureSections($response->data());
 
         return new TwigView('home', [
             'authorized' => isset($authorized),
@@ -26,7 +29,55 @@ class SectionController
         ]);
     }
 
-    private function structureSection(array $sections): array
+    public function show(): TwigView
+    {
+        $authorized = $_SESSION['authorized'] ?? null;
+
+        return new TwigView('createSection', [
+            'authorized' => isset($authorized),
+        ]);
+    }
+
+    public function create(): Redirect
+    {
+        $section = $_POST;
+
+        (new CreateSectionService())->execute(new CreateSectionRequest($section));
+
+        return new Redirect('/');
+    }
+
+    public function edit(): TwigView
+    {
+        $authorized = $_SESSION['authorized'] ?? null;
+
+        $sections = (new ReadSectionService())->executeWithoutOptions();
+
+        return new TwigView('editSections', [
+            'authorized' => isset($authorized),
+            'sections' => $sections->data()
+        ]);
+    }
+
+    public function delete(): Redirect
+    {
+        $section = $_POST;
+
+        (new DeleteSectionService())->execute(new DeleteSectionRequest($section));
+
+        return new Redirect('/');
+    }
+
+    public function test()
+    {
+        $response = (new DeleteSectionService())->test();
+
+        echo "<pre>";
+        var_dump($response);
+        echo "<pre>";
+    }
+
+    private function structureSections(array $sections): array
     {
         $sectionOptions = [];
 

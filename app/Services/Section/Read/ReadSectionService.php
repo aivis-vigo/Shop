@@ -12,4 +12,11 @@ class ReadSectionService
 
         return new ReadSectionResponse($sections);
     }
+
+    public function executeWithoutOptions(): ReadSectionResponse
+    {
+        $sections = (new PdoSectionRepository())->withoutOptions();
+
+        return new ReadSectionResponse($sections);
+    }
 }

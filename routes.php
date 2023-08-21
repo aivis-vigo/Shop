@@ -11,6 +11,12 @@ return [
     // Home/Sections
     ['GET', '/', [SectionController::class, 'index']],
 
+    // Section
+    ['GET', '/create-section', [SectionController::class, 'show']],
+    ['POST', '/create-section/process', [SectionController::class, 'create']],
+    ['GET', '/edit-sections', [SectionController::class, 'edit']],
+    ['POST', '/delete-section', [SectionController::class, 'delete']],
+
     // Registration
     ['GET', '/register', [RegistrationController::class, 'index']],
     ['POST', '/create-user', [UserController::class, 'create']],
@@ -62,4 +68,6 @@ return [
 
     // Logout
     ['GET', '/logout', [AuthorizationController::class, 'logout']],
+
+    ['GET', '/test', [SectionController::class, 'test']],
 ];
