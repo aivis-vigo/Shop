@@ -66,6 +66,9 @@ return [
     ['GET', '/furniture/{id:\d+}', [OptionController::class, 'index']],
     ['GET', '/hobbies/{id:\d+}', [OptionController::class, 'index']],
 
+    // Edit Subsections
+    ['POST', '/options/edit', [OptionController::class, 'edit']],
+
     // Display All Listings
     ['GET', '/jobs/{title}/{id:\d+}/', [ListingController::class, 'read']],
     ['GET', '/electronics/{title}/{id:\d+}/', [ListingController::class, 'read']],

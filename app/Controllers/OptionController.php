@@ -23,6 +23,17 @@ class OptionController
         ]);
     }
 
+    public function edit(): TwigView
+    {
+        $authorized = $_SESSION['authorized'];
+
+        var_dump($_POST);die;
+
+        return new TwigView('editOptions', [
+            'authorized' => isset($authorized)
+        ]);
+    }
+
     private function structureOptions(array $options): array
     {
         $collected = [];
@@ -32,6 +43,7 @@ class OptionController
                 $collected[$listing['id']] = [
                     'title' => $listing['title'],
                     'id' => $listing['id'],
+                    'section_id' => $listing['section_id'],
                     'listings' => []
                 ];
             }
