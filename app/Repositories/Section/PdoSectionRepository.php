@@ -47,7 +47,7 @@ class PdoSectionRepository
         }
     }
 
-    public function test(): array
+    public function disableDelete(): array
     {
         try {
             return $this->query

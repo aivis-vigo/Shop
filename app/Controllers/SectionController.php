@@ -52,10 +52,32 @@ class SectionController
         $authorized = $_SESSION['authorized'] ?? null;
 
         $sections = (new ReadSectionService())->executeWithoutOptions();
+        $restrictDelete = (new DeleteSectionService())->disableDelete();
+
+        // TODO: take section names
+        $disabledSections = [];
+
+        foreach ($restrictDelete as $section) {
+            if (!in_array($section['section'], $disabledSections)) {
+                $disabledSections[] = $section['section'];
+            }
+        }
+        // TODO: if some section name matches one from disabled section array change to dif. icon
+        $added = [];
+
+        foreach ($sections->data() as $section) {
+            if (in_array($section['title'], $disabledSections)) {
+                $section['disabled'] = true;
+            } else {
+                $section['disabled'] = false;
+            }
+
+            $added[] = $section;
+        }
 
         return new TwigView('editSections', [
             'authorized' => isset($authorized),
-            'sections' => $sections->data()
+            'sections' => $added
         ]);
     }
 
@@ -70,7 +92,7 @@ class SectionController
 
     public function test()
     {
-        $response = (new DeleteSectionService())->test();
+        $response = (new DeleteSectionService())->disableDelete();
 
         echo "<pre>";
         var_dump($response);

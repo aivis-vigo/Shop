@@ -13,8 +13,8 @@ class DeleteSectionService
         return new DeleteSectionResponse($status);
     }
 
-    public function test()
+    public function disableDelete(): array
     {
-        return (new PdoSectionRepository())->test();
+        return (new PdoSectionRepository())->disableDelete();
     }
 }
