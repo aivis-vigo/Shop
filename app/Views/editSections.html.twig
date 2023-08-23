@@ -20,7 +20,12 @@
                     <input type="hidden" name="id" value="{{ section.id }}">
 
                     <div class="flex">
-                        <form action="/test">
+                        <form action="/{{ section.title|lower }}/edit" method="post">
+                            <input type="hidden" name="id" value="{{ section.id }}">
+                            <input type="hidden" name="title" value="{{ section.title }}">
+                            <input type="hidden" name="section" value="{{ section.section }}">
+                            <input type="hidden" name="description" value="{{ section.description }}">
+
                             <button type="submit">
                                 <svg class="h-8 w-8 text-black"
                                      width="24"

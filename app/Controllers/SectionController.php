@@ -4,11 +4,14 @@ namespace App\Controllers;
 
 use App\Core\Redirect;
 use App\Core\TwigView;
+use App\Models\Section;
 use App\Services\Section\Create\CreateSectionRequest;
 use App\Services\Section\Create\CreateSectionService;
 use App\Services\Section\Delete\DeleteSectionRequest;
 use App\Services\Section\Delete\DeleteSectionService;
 use App\Services\Section\Read\ReadSectionService;
+use App\Services\Section\Update\UpdateSectionRequest;
+use App\Services\Section\Update\UpdateSectionService;
 
 class SectionController
 {
@@ -52,33 +55,36 @@ class SectionController
         $authorized = $_SESSION['authorized'] ?? null;
 
         $sections = (new ReadSectionService())->executeWithoutOptions();
-        $restrictDelete = (new DeleteSectionService())->disableDelete();
+        $listings = (new DeleteSectionService())->disableDelete();
 
-        // TODO: take section names
-        $disabledSections = [];
-
-        foreach ($restrictDelete as $section) {
-            if (!in_array($section['section'], $disabledSections)) {
-                $disabledSections[] = $section['section'];
-            }
-        }
-        // TODO: if some section name matches one from disabled section array change to dif. icon
-        $added = [];
-
-        foreach ($sections->data() as $section) {
-            if (in_array($section['title'], $disabledSections)) {
-                $section['disabled'] = true;
-            } else {
-                $section['disabled'] = false;
-            }
-
-            $added[] = $section;
-        }
+        $updatedSections = $this->checkDisabled($sections->data(), $listings);
 
         return new TwigView('editSections', [
             'authorized' => isset($authorized),
-            'sections' => $added
+            'sections' => $updatedSections
         ]);
+    }
+
+    public function editSection(): TwigView
+    {
+        $data = $_POST;
+        $section = new Section($data);
+
+        $display = $this->buildModel($section);
+
+        return new TwigView('editSection', [
+            'authorized' => isset($authorized),
+            'section' => $display
+        ]);
+    }
+
+    public function update(): Redirect
+    {
+        $section = $_POST;
+
+        (new UpdateSectionService())->execute(new UpdateSectionRequest($section));
+
+        return new Redirect('/');
     }
 
     public function delete(): Redirect
@@ -88,15 +94,6 @@ class SectionController
         (new DeleteSectionService())->execute(new DeleteSectionRequest($section));
 
         return new Redirect('/');
-    }
-
-    public function test()
-    {
-        $response = (new DeleteSectionService())->disableDelete();
-
-        echo "<pre>";
-        var_dump($response);
-        echo "<pre>";
     }
 
     private function structureSections(array $sections): array
@@ -121,5 +118,38 @@ class SectionController
         asort($sectionOptions);
 
         return $sectionOptions;
+    }
+
+    private function checkDisabled(array $sections, array $listings): array
+    {
+        $disabledSections = [];
+        $updatedSections = [];
+
+        foreach ($listings as $listing) {
+            if (!in_array($listing['section'], $disabledSections)) {
+                $disabledSections[] = $listing['section'];
+            }
+        }
+
+        foreach ($sections as $section) {
+            if (in_array($section['title'], $disabledSections)) {
+                $section['disabled'] = true;
+            } else {
+                $section['disabled'] = false;
+            }
+
+            $updatedSections[] = $section;
+        }
+
+        return $updatedSections;
+    }
+
+    private function buildModel(Section $section): array
+    {
+        return [
+            'id' => $section->id(),
+            'title' => $section->title(),
+            'description' => $section->description(),
+        ];
     }
 }

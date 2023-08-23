@@ -5,6 +5,7 @@ namespace App\Repositories\Section;
 use App\Core\Database;
 use App\Services\Section\Create\CreateSectionRequest;
 use App\Services\Section\Delete\DeleteSectionRequest;
+use App\Services\Section\Update\UpdateSectionRequest;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Query\QueryBuilder;
 use PDOException;
@@ -79,6 +80,26 @@ class PdoSectionRepository
             return "Created successfully :)";
         } catch (PDOException|Exception) {
             return "Something went wrong creating new section :(";
+        }
+    }
+
+    public function update(UpdateSectionRequest $section): string
+    {
+        try {
+            $this->query
+                ->update('sections')
+                ->set('title', '?')
+                ->set('section', '?')
+                ->set('description', '?')
+                ->setParameter(0, $section->title())
+                ->setParameter(1, $section->title())
+                ->setParameter(2, $section->description())
+                ->where('id = ' . $section->id())
+                ->executeQuery();
+
+            return "Created successfully :)";
+        } catch (PDOException|\Exception) {
+            return "Something went wrong updating section :(";
         }
     }
 

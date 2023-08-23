@@ -11,12 +11,6 @@ return [
     // Home/Sections
     ['GET', '/', [SectionController::class, 'index']],
 
-    // Section
-    ['GET', '/create-section', [SectionController::class, 'show']],
-    ['POST', '/create-section/process', [SectionController::class, 'create']],
-    ['GET', '/edit-sections', [SectionController::class, 'edit']],
-    ['POST', '/delete-section', [SectionController::class, 'delete']],
-
     // Registration
     ['GET', '/register', [RegistrationController::class, 'index']],
     ['POST', '/create-user', [UserController::class, 'create']],
@@ -36,7 +30,33 @@ return [
     ['GET', '/create-listing', [ListingController::class, 'index']],
     ['POST', '/save-listing', [ListingController::class, 'create']],
 
-    // Section subsections
+    // Sections
+    ['GET', '/create-section', [SectionController::class, 'show']],
+    ['POST', '/create-section/process', [SectionController::class, 'create']],
+    ['GET', '/edit-sections', [SectionController::class, 'edit']],
+    ['POST', '/delete-section', [SectionController::class, 'delete']],
+
+    // Edit Sections
+    ['POST', '/jobs/edit', [SectionController::class, 'editSection']],
+    ['POST', '/electronics/edit', [SectionController::class, 'editSection']],
+    ['POST', '/transport/edit', [SectionController::class, 'editSection']],
+    ['POST', '/clothing/edit', [SectionController::class, 'editSection']],
+    ['POST', '/animals/edit', [SectionController::class, 'editSection']],
+    ['POST', '/properties/edit', [SectionController::class, 'editSection']],
+    ['POST', '/furniture/edit', [SectionController::class, 'editSection']],
+    ['POST', '/hobbies/edit', [SectionController::class, 'editSection']],
+
+    // Update Sections
+    ['POST', '/jobs/update', [SectionController::class, 'update']],
+    ['POST', '/electronics/update', [SectionController::class, 'update']],
+    ['POST', '/transport/update', [SectionController::class, 'update']],
+    ['POST', '/clothing/update', [SectionController::class, 'update']],
+    ['POST', '/animals/update', [SectionController::class, 'update']],
+    ['POST', '/properties/update', [SectionController::class, 'update']],
+    ['POST', '/furniture/update', [SectionController::class, 'update']],
+    ['POST', '/hobbies/update', [SectionController::class, 'update']],
+
+    // Subsections
     ['GET', '/jobs/{id:\d+}', [OptionController::class, 'index']],
     ['GET', '/electronics/{id:\d+}', [OptionController::class, 'index']],
     ['GET', '/transport/{id:\d+}', [OptionController::class, 'index']],
@@ -56,7 +76,7 @@ return [
     ['GET', '/furniture/{title}/{id:\d+}/', [ListingController::class, 'read']],
     ['GET', '/hobbies/{title}/{id:\d+}/', [ListingController::class, 'read']],
 
-    // Display Selected Listings
+    // Show Listings
     ['GET', '/jobs/{title}/{id:\d+}/{listing:\d+}', [ListingController::class, 'show']],
     ['GET', '/electronics/{title}/{id:\d+}/{listing:\d+}', [ListingController::class, 'show']],
     ['GET', '/transport/{title}/{id:\d+}/{listing:\d+}', [ListingController::class, 'show']],
