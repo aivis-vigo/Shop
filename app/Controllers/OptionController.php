@@ -3,6 +3,9 @@
 namespace App\Controllers;
 
 use App\Core\TwigView;
+use App\Repositories\Option\PdoOptionRepository;
+use App\Services\Listing\Read\ReadListingRequest;
+use App\Services\Listing\Read\ReadListingService;
 use App\Services\Option\Read\ReadOptionService;
 use App\Services\Option\Read\ReadOptionsRequest;
 
@@ -19,15 +22,21 @@ class OptionController
 
         return new TwigView('options', [
             'authorized' => isset($authorized),
-            'options' => $options
+            'options' => $options,
+            'id' => reset($options)['section_id']
         ]);
     }
 
     public function edit(): TwigView
     {
         $authorized = $_SESSION['authorized'];
+        $id = (int)$_POST['section_id'];
 
-        var_dump($_POST);die;
+        $options = (new ReadOptionService())->edit(new ReadOptionsRequest($id));
+        $listings = (new ReadListingService())->fetchByOptionTitle();
+        echo "<pre>";
+        var_dump($_POST);
+        echo "<pre>";
 
         return new TwigView('editOptions', [
             'authorized' => isset($authorized)

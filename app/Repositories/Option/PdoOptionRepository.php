@@ -3,6 +3,7 @@
 namespace App\Repositories\Option;
 
 use App\Core\Database;
+use App\Services\Option\Read\ReadOptionsRequest;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Query\QueryBuilder;
 use PDOException;
@@ -40,6 +41,20 @@ class PdoOptionRepository
             return $this->query
                 ->select("*")
                 ->from("options")
+                ->fetchAllAssociative();
+        } catch (PDOException|Exception) {
+            return [];
+        }
+    }
+
+    public function edit(ReadOptionsRequest $option): array
+    {
+        try {
+            return $this->query
+                ->select("*")
+                ->from("options", "o")
+                ->where('section_id = ?')
+                ->setParameter(0, $option->id())
                 ->fetchAllAssociative();
         } catch (PDOException|Exception) {
             return [];

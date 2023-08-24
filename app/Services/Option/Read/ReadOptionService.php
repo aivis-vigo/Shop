@@ -19,4 +19,11 @@ class ReadOptionService
 
         return new ReadOptionResponse($options);
     }
+
+    public function edit(ReadOptionsRequest $request): ReadOptionResponse
+    {
+        $options = (new PdoOptionRepository())->edit($request);
+
+        return new ReadOptionResponse($options);
+    }
 }
