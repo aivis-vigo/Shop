@@ -70,14 +70,12 @@ class PdoListingRepository
         }
     }
 
-    public function fetchByOptionTitle(): array|string
+    public function fetchAll(): array|string
     {
         try {
             return $this->query
                 ->select('*')
                 ->from('listing')
-                ->where('option_name = ?')
-                ->setParameter(0, $title)
                 ->fetchAllAssociative();
         } catch (PDOException|Exception) {
             return "Something went wrong! The operation didn't execute as expected. Please try again later or contact our support team for assistance";

@@ -3,7 +3,10 @@
 namespace App\Repositories\Option;
 
 use App\Core\Database;
+use App\Services\Option\Create\CreateOptionRequest;
+use App\Services\Option\Delete\DeleteOptionRequest;
 use App\Services\Option\Read\ReadOptionsRequest;
+use App\Services\Option\Update\UpdateOptionRequest;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Query\QueryBuilder;
 use PDOException;
@@ -35,6 +38,27 @@ class PdoOptionRepository
         }
     }
 
+    public function create(CreateOptionRequest $option): string
+    {
+        try {
+            $this->query
+                ->insert('options')
+                ->values(
+                    [
+                        "section_id" => "?",
+                        "title" => "?"
+                    ]
+                )
+                ->setParameter(0, $option->sectionId())
+                ->setParameter(1, $option->title())
+                ->executeQuery();
+
+            return "Option created successfully :)";
+        } catch (PDOException|Exception) {
+            return "Something went wrong while creating an option :(";
+        }
+    }
+
     public function fetchAll(): array
     {
         try {
@@ -58,6 +82,37 @@ class PdoOptionRepository
                 ->fetchAllAssociative();
         } catch (PDOException|Exception) {
             return [];
+        }
+    }
+
+    public function update(UpdateOptionRequest $option): string
+    {
+        try {
+            $this->query
+                ->update('options')
+                ->set('title', '?')
+                ->setParameter(1, $option->title())
+                ->where('id = ' . $option->id())
+                ->executeQuery();
+
+            return "Option updated successfully :)";
+        } catch (PDOException|Exception) {
+            return "Something went wrong while updating option :(";
+        }
+    }
+
+    public function delete(DeleteOptionRequest $option): string
+    {
+        try {
+            $this->query
+                ->delete('options')
+                ->where('id = ?')
+                ->setParameter(0, $option->id())
+                ->executeQuery();
+
+            return "Option deleted successfully :)";
+        } catch (PDOException|Exception) {
+            return "Something went wrong while deleting option :(";
         }
     }
 }

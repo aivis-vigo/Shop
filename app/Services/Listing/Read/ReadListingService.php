@@ -20,9 +20,9 @@ class ReadListingService
         return new ReadListingResponse($listings);
     }
 
-    public function fetchByOptionTitle(): ReadListingResponse
+    public function fetchAll(): ReadListingResponse
     {
-        $listings = (new PdoListingRepository())->fetchByOptionTitle();
+        $listings = (new PdoListingRepository())->fetchAll();
 
         return new ReadListingResponse($listings);
     }

@@ -11,20 +11,17 @@
 {% block content %}
     <main class="my-4">
         <div class="w-1/2 gap-x-4 grid grid-cols-2">
-            {% for section in sections %}
+            {% for option in options %}
                 <div class="flex bg-white p-4 mb-4 rounded-lg justify-between">
                     <div class="text-xl font-semibold">
-                        {{ section.title }}
+                        {{ option.title }}
                     </div>
-                    
-                    <input type="hidden" name="id" value="{{ section.id }}">
 
                     <div class="flex">
-                        <form action="/{{ section.title|lower }}/edit" method="post">
-                            <input type="hidden" name="id" value="{{ section.id }}">
-                            <input type="hidden" name="title" value="{{ section.title }}">
-                            <input type="hidden" name="section" value="{{ section.section }}">
-                            <input type="hidden" name="description" value="{{ section.description }}">
+                        <form action="/{{ option.title|lower }}/edit" method="post">
+                            <input type="hidden" name="id" value="{{ option.id }}">
+                            <input type="hidden" name="section_id" value="{{ option.secton_id }}">
+                            <input type="hidden" name="title" value="{{ option.title }}">
 
                             <button type="submit">
                                 <svg class="h-8 w-8 text-black"
@@ -42,10 +39,10 @@
                             </button>
                         </form>
 
-                        <form action="/delete-section" method="post">
-                            <input type="hidden" name="id" value="{{ section.id }}">
+                        <form action="/delete-option" method="post">
+                            <input type="hidden" name="id" value="{{ option.id }}">
 
-                            {% if section.disabled %}
+                            {% if option.disabled %}
                                 <svg class="h-8 w-8 text-gray-500"
                                      viewBox="0 0 24 24"
                                      fill="none"

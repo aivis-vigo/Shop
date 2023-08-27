@@ -56,6 +56,51 @@ return [
     ['POST', '/furniture/update', [SectionController::class, 'update']],
     ['POST', '/hobbies/update', [SectionController::class, 'update']],
 
+    // Edit Subsections
+    ['POST', '/options/edit', [OptionController::class, 'edit']],
+
+    ['POST', '/pilot/edit', [OptionController::class, 'editOption']],
+    ['POST', '/officer/edit', [OptionController::class, 'editOption']],
+    ['POST', '/phones/edit', [OptionController::class, 'editOption']],
+    ['POST', '/tablets/edit', [OptionController::class, 'editOption']],
+    ['POST', '/trucks/edit', [OptionController::class, 'editOption']],
+    ['POST', '/kids/edit', [OptionController::class, 'editOption']],
+    ['POST', '/adults/edit', [OptionController::class, 'editOption']],
+    ['POST', '/cats/edit', [OptionController::class, 'editOption']],
+    ['POST', '/dogs/edit', [OptionController::class, 'editOption']],
+    ['POST', '/houses/edit', [OptionController::class, 'editOption']],
+    ['POST', '/flats/edit', [OptionController::class, 'editOption']],
+    ['POST', '/offices/edit', [OptionController::class, 'editOption']],
+    ['POST', '/couches/edit', [OptionController::class, 'editOption']],
+    ['POST', '/beds/edit', [OptionController::class, 'editOption']],
+    ['POST', '/chairs/edit', [OptionController::class, 'editOption']],
+    ['POST', '/hockey/edit', [OptionController::class, 'editOption']],
+    ['POST', '/basketball/edit', [OptionController::class, 'editOption']],
+
+    // Update Sections
+    ['POST', '/pilot/update', [OptionController::class, 'update']],
+    ['POST', '/officer/update', [OptionController::class, 'update']],
+    ['POST', '/phones/update', [OptionController::class, 'update']],
+    ['POST', '/tablets/update', [OptionController::class, 'update']],
+    ['POST', '/trucks/update', [OptionController::class, 'update']],
+    ['POST', '/kids/update', [OptionController::class, 'update']],
+    ['POST', '/adults/update', [OptionController::class, 'update']],
+    ['POST', '/cats/update', [OptionController::class, 'update']],
+    ['POST', '/dogs/update', [OptionController::class, 'update']],
+    ['POST', '/houses/update', [OptionController::class, 'update']],
+    ['POST', '/flats/update', [OptionController::class, 'update']],
+    ['POST', '/offices/update', [OptionController::class, 'update']],
+    ['POST', '/couches/update', [OptionController::class, 'update']],
+    ['POST', '/beds/update', [OptionController::class, 'update']],
+    ['POST', '/chairs/update', [OptionController::class, 'update']],
+    ['POST', '/hockey/update', [OptionController::class, 'update']],
+    ['POST', '/basketball/update', [OptionController::class, 'update']],
+
+    // Crete & Delete Subsection
+    ['POST', '/create-option', [OptionController::class, 'show']],
+    ['POST', '/create-option/process', [OptionController::class, 'create']],
+    ['POST', '/delete-option', [OptionController::class, 'delete']],
+
     // Subsections
     ['GET', '/jobs/{id:\d+}', [OptionController::class, 'index']],
     ['GET', '/electronics/{id:\d+}', [OptionController::class, 'index']],
@@ -65,9 +110,6 @@ return [
     ['GET', '/properties/{id:\d+}', [OptionController::class, 'index']],
     ['GET', '/furniture/{id:\d+}', [OptionController::class, 'index']],
     ['GET', '/hobbies/{id:\d+}', [OptionController::class, 'index']],
-
-    // Edit Subsections
-    ['POST', '/options/edit', [OptionController::class, 'edit']],
 
     // Display All Listings
     ['GET', '/jobs/{title}/{id:\d+}/', [ListingController::class, 'read']],
