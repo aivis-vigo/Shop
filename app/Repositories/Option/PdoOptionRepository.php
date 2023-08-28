@@ -46,11 +46,13 @@ class PdoOptionRepository
                 ->values(
                     [
                         "section_id" => "?",
-                        "title" => "?"
+                        "title" => "?",
+                        "cover_url" => "?"
                     ]
                 )
                 ->setParameter(0, $option->sectionId())
                 ->setParameter(1, $option->title())
+                ->setParameter(2, $option->pictureUrl())
                 ->executeQuery();
 
             return "Option created successfully :)";
