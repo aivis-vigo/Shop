@@ -106,6 +106,7 @@ class SectionController
                     'title' => $option['section'],
                     'description' => $option['description'],
                     'id' => $option['section_id'],
+                    'url' => $option['picture_url'],
                     'options' => []
                 ];
             }
@@ -150,6 +151,7 @@ class SectionController
             'id' => $section->id(),
             'title' => $section->title(),
             'description' => $section->description(),
+            'picture_url' => $section->pictureUrl()
         ];
     }
 }

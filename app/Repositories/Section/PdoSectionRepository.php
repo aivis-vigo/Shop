@@ -91,9 +91,11 @@ class PdoSectionRepository
                 ->set('title', '?')
                 ->set('section', '?')
                 ->set('description', '?')
+                ->set('picture_url', '?')
                 ->setParameter(0, $section->title())
                 ->setParameter(1, $section->title())
                 ->setParameter(2, $section->description())
+                ->setParameter(3, $section->pictureUrl())
                 ->where('id = ' . $section->id())
                 ->executeQuery();
 

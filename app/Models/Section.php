@@ -7,12 +7,14 @@ class Section
     private int $id;
     private string $title;
     private string $description;
+    private string $pictureUrl;
 
     public function __construct(array $section)
     {
         $this->id = (int)$section['id'];
         $this->title = $section['title'];
         $this->description = $section['description'];
+        $this->pictureUrl = $section['picture_url'];
     }
 
     public function id(): int
@@ -28,5 +30,10 @@ class Section
     public function description(): string
     {
         return $this->description;
+    }
+
+    public function pictureUrl(): string
+    {
+        return $this->pictureUrl;
     }
 }

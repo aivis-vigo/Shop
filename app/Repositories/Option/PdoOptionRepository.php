@@ -91,7 +91,9 @@ class PdoOptionRepository
             $this->query
                 ->update('options')
                 ->set('title', '?')
+                ->set('cover_url', '?')
                 ->setParameter(1, $option->title())
+                ->setParameter(2, $option->pictureUrl())
                 ->where('id = ' . $option->id())
                 ->executeQuery();
 

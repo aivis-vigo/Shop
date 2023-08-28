@@ -41,6 +41,18 @@
                         {{ section.description }}
                     </textarea>
                 </div>
+                <div class="sm:col-span-2">
+                    <label for="picture_url"
+                           class="block mb-2 text-sm font-medium text-white">
+                        Picture URL
+                    </label>
+                    <input type="text"
+                           name="picture_url"
+                           id="picture_url"
+                           class="bg-gray-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                           value="{{ section.picture_url }}"
+                           required>
+                </div>
             </div>
             <button type="submit"
                     class="inline-flex items-center justify-end px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-black bg-amber-300 rounded-lg focus:ring-4 focus:ring-primary-200 ">

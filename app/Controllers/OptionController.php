@@ -114,6 +114,7 @@ class OptionController
                     'title' => $listing['title'],
                     'id' => $listing['id'],
                     'section_id' => $listing['section_id'],
+                    'url' => $listing['cover_url'],
                     'listings' => []
                 ];
             }

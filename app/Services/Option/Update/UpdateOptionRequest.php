@@ -6,11 +6,13 @@ class UpdateOptionRequest
 {
     private int $id;
     private string $title;
+    private string $pictureUrl;
 
     public function __construct(array $option)
     {
         $this->id = (int)$option['id'];
         $this->title = $option['title'];
+        $this->pictureUrl = $option['picture_url'];
     }
 
     public function id(): int
@@ -21,5 +23,10 @@ class UpdateOptionRequest
     public function title(): string
     {
         return $this->title;
+    }
+
+    public function pictureUrl(): string
+    {
+        return $this->pictureUrl;
     }
 }
