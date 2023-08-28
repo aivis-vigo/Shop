@@ -25,7 +25,7 @@ class OptionController
 
         $options = $this->structureOptions($response->data());
 
-        return new TwigView('options', [
+        return new TwigView('Options/options', [
             'authorized' => isset($authorized),
             'options' => $options,
             'id' => reset($options)['section_id']
@@ -37,7 +37,7 @@ class OptionController
         $authorized = $_SESSION['authorized'];
         $sectionId = $_POST['section_id'];
 
-        return new TwigView('createOption', [
+        return new TwigView('Options/createOption', [
             'authorized' => isset($authorized),
             'sectionId' => $sectionId
         ]);
@@ -64,7 +64,7 @@ class OptionController
 
         $updatedOptions = $this->checkDisabled($options->data(), $listings->listings());
 
-        return new TwigView('editOptions', [
+        return new TwigView('Options/editOptions', [
             'authorized' => isset($authorized),
             'options' => $updatedOptions
         ]);
@@ -76,7 +76,7 @@ class OptionController
 
         $option = $_POST;
 
-        return new TwigView('editOption', [
+        return new TwigView('Options/editOption', [
             'authorized' => isset($authorized),
             'option' => $option
         ]);

@@ -36,7 +36,7 @@ class SectionController
     {
         $authorized = $_SESSION['authorized'] ?? null;
 
-        return new TwigView('createSection', [
+        return new TwigView('Sections/createSection', [
             'authorized' => isset($authorized),
         ]);
     }
@@ -59,7 +59,7 @@ class SectionController
 
         $updatedSections = $this->checkDisabled($sections->data(), $listings);
 
-        return new TwigView('editSections', [
+        return new TwigView('Sections/editSections', [
             'authorized' => isset($authorized),
             'sections' => $updatedSections
         ]);
@@ -72,7 +72,7 @@ class SectionController
 
         $display = $this->buildModel($section);
 
-        return new TwigView('editSection', [
+        return new TwigView('Sections/editSection', [
             'authorized' => isset($authorized),
             'section' => $display
         ]);
