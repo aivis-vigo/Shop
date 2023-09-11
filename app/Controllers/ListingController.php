@@ -6,8 +6,12 @@ use App\Core\Redirect;
 use App\Core\TwigView;
 use App\Services\Listing\Create\CreateListingRequest;
 use App\Services\Listing\Create\CreateListingService;
+use App\Services\Listing\Delete\DeleteListingRequest;
+use App\Services\Listing\Delete\DeleteListingService;
 use App\Services\Listing\Read\ReadListingRequest;
 use App\Services\Listing\Read\ReadListingService;
+use App\Services\Listing\Update\UpdateListingRequest;
+use App\Services\Listing\Update\UpdateListingService;
 use App\Services\Option\Read\ReadOptionService;
 use App\Services\Section\Read\ReadSectionService;
 use App\Services\User\Read\ReadUserRequest;
@@ -69,6 +73,34 @@ class ListingController
             'authorized' => isset($_SESSION['authorized']),
             'listings' => $listings
         ]);
+    }
+
+    public function edit(): TwigView
+    {
+        $listing = $_POST;
+
+        return new TwigView('Listings/edit-listing', [
+            'authorized' => isset($_SESSION['authorized']),
+            'listing' => $listing
+        ]);
+    }
+
+    public function update(): Redirect
+    {
+        $listing = $_POST;
+
+        $status = (new UpdateListingService())->execute(new UpdateListingRequest($listing));
+
+        return new Redirect("/");
+    }
+
+    public function delete(): Redirect
+    {
+        $listing = $_POST;
+
+        $status = (new DeleteListingService())->execute(new DeleteListingRequest($listing));
+
+        return new Redirect("/");
     }
 
     private function uploadPicture(): void

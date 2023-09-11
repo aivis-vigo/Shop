@@ -133,6 +133,13 @@ return [
     ['GET', '/furniture/{title}/{id:\d+}/{listing:\d+}', [ListingController::class, 'show']],
     ['GET', '/hobbies/{title}/{id:\d+}/{listing:\d+}', [ListingController::class, 'show']],
 
+    // Edit & Update Listing
+    ['POST', '/edit-listing', [ListingController::class, 'edit']],
+    ['POST', '/update-listing', [ListingController::class, 'update']],
+
+    // Delete Listing
+    ['POST', '/delete-listing', [ListingController::class, 'delete']],
+
     // Logout
     ['GET', '/logout', [AuthorizationController::class, 'logout']],
 
